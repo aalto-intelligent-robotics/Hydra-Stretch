@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>hydra_stretch</name>
+  <version>0.0.0</version>
+  <description>The hydra_stretch package</description>
+  <maintainer email="phuoc.nguyen@aalto.fi">ros</maintainer>
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>hydra</build_depend>
+  <build_depend>hydra_ros</build_depend>
+  <build_depend>kimera_semantics</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>slam_toolbox</build_depend>
+  <build_depend>hector_mapping</build_depend>
+  <build_export_depend>hydra</build_export_depend>
+  <build_export_depend>hydra_ros</build_export_depend>
+  <build_export_depend>kimera_semantics</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>slam_toolbox</build_export_depend>
+  <build_export_depend>hector_mapping</build_export_depend>
+  <exec_depend>hydra</exec_depend>
+  <exec_depend>hydra_ros</exec_depend>
+  <exec_depend>kimera_semantics</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
+  <exec_depend>hector_mapping</exec_depend>
+</package>

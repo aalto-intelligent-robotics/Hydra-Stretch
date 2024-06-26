@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="dsg_output_dir" default="$(find hydra)/output/"/>
+  <arg name="dsg_output_prefix" default="stretch"/>
+  <arg name="autosave_2dmap" default="true"/>
+  <arg name="map2d_save_delay" default="5"/>
+  <!-- <arg name="sim_time_required" default="false"/> -->
+  <arg default="slam_toolbox" name="slam_method"/>
+  <group if="$(eval slam_method == 'slam_toolbox')">
+    <!-- <param name="use_sim_time" value="true"/> -->
+    <include file="$(find hydra_stretch)/launch/slam/slam_toolbox_mapping.launch"/>
+    <group if="$(eval autosave_2dmap)">
+      <node pkg="rosservice" type="rosservice" name="slam_toolbox_map_serializer" args="call /slam_toolbox/serialize_map $(arg dsg_output_dir)/$(arg dsg_output_prefix)/map2d/map2d_serialize" respawn="true" output="log" respawn_delay="$(arg map2d_save_delay)"/>
+      <node pkg="map_server" type="map_saver" name="map_saver" args="-f $(arg dsg_output_dir)/$(arg dsg_output_prefix)/map2d/map2d" respawn="true" output="log" respawn_delay="$(arg map2d_save_delay)"/>
+    </group>
+  </group>
+  <group if="$(eval slam_method == 'hector')">
+    <!-- <param name="use_sim_time" value="true"/> -->
+    <include file="$(find hydra_stretch)/launch/slam/hector_mapping.launch"/>
+  </group>
+  <arg name="use_gt_semantics" default="true"/>
+  <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/semantics"/>
+  <arg name="semantic_map_file" default="stretch_segmentation_mapping.csv"/>
+  <arg name="semantic_map_path" default="$(arg semantic_map_dir)/$(arg semantic_map_file)" if="$(arg use_gt_semantics)"/>
+  <arg name="semantic_map_path" default="$(find semantic_recolor)/config/colors/ade150_config.csv" unless="$(arg use_gt_semantics)"/>
+  <arg name="pointcloud_topic" value="semantic_pointcloud"/>
+  <arg name="use_gt_frame" default="true"/>
+  <arg name="sensor_frame" default="astra_link" unless="$(arg use_gt_frame)"/>
+  <arg name="sensor_frame" default="base_link" if="$(arg use_gt_frame)"/>
+  <include file="$(find hydra_stretch)/launch/data_source/stretch_pointcloud.launch" pass_all_args="true"/>
+  <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
+    <arg name="robot_id" default="0"/>
+    <arg name="config_dir" default="$(find hydra_stretch)/config/hydra"/>
+    <arg name="reconstruction_config" default="$(find hydra_stretch)/config/hydra/reconstruction_config.yaml"/>
+    <arg name="extrinsics" default="$(find hydra_stretch)/config/hydra/extrinsics.yaml"/>
+    <arg name="rviz_dir" default="$(find hydra_stretch)/config/rviz"/>
+    <arg name="rviz_file" default="stretch.rviz"/>
+    <arg name="rviz_file_td" default="stretch_topdown.rviz"/>
+    <arg name="use_oriented_bounding_boxes" default="false"/>
+    <arg name="typology_dir" default="$(find hydra_stretch)/config/hydra"/>
+    <arg name="typology_config" default="stretch_typology.yaml"/>
+    <arg name="world_frame" default="map"/>
+  </include>
+  <!-- Publish TF Frame transformation (from realsense to astra (cus it was the easiest, purely estimation though)) -->
+  <node name="rs_to_astra_tf" pkg="tf2_ros" type="static_transform_publisher" args="0.08 0.11 1.50 0.0 0.0 0.0 1.0 base_link astra_link"/>
+</launch>
