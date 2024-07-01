@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="dsg_output_dir" default="$(find hydra_stretch)/output/"/>
+  <arg name="dsg_output_dir" default="$(env HOME)/dsg_output/"/>
   <arg name="dsg_output_prefix" default="stretch"/>
   <arg name="autosave_2dmap" default="true"/>
   <arg name="map2d_save_delay" default="5"/>
@@ -43,4 +43,6 @@
   </include>
   <!-- Publish TF Frame transformation (from realsense to astra (cus it was the easiest, purely estimation though)) -->
   <node name="rs_to_astra_tf" pkg="tf2_ros" type="static_transform_publisher" args="0.08 0.11 1.50 0.0 0.0 0.0 1.0 base_link astra_link"/>
+  <!-- Prep dsg output directories -->
+  <node name="prep_output" pkg="hydra_stretch" type="prep_output.bash" output="screen" args="-n $(arg dsg_output_prefix) -d $(arg dsg_output_dir)" />
 </launch>
