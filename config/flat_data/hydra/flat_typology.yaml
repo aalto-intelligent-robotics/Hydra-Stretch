@@ -1,0 +1,28 @@
+---
+objects:
+  labels: [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+structure_labels: [0, 1, 2]
+walls_labels: [0, 2]
+floor_labels: [1]
+label_names:
+  - {label: 0, name: Ceiling}
+  - {label: 1, name: Floor}
+  - {label: 2, name: Wall}
+  - {label: 3, name: Window}
+  - {label: 4, name: Bed}
+  - {label: 5, name: Bed_Lamp}
+  - {label: 6, name: Table}
+  - {label: 7, name: TV}
+  - {label: 8, name: Chair}
+  - {label: 9, name: Ceilig_Lamp}
+  - {label: 10, name: Clock}
+  - {label: 11, name: Door}
+  - {label: 12, name: Floor_Lamp}
+  - {label: 13, name: Kitchen}
+  - {label: 14, name: Decor}
+  - {label: 15, name: Plant}
+  - {label: 16, name: Sofa}
+  - {label: 17, name: Coffee_Machine}
+  - {label: 18, name: Laptop}
+  - {label: 19, name: Books}
+  - {label: 20, name: Thing}

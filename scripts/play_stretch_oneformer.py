@@ -29,7 +29,7 @@ class stretchSegNode:
         self.seg_dir = str(
             rospy.get_param(
                 "~segmentation_path",
-                "/home/ros/bags/stretch/stretch_astra_run_000/seg"
+                "/home/ros/bags/stretch/stretch_run_000/seg"
             )
         )
         self.bridge = CvBridge()

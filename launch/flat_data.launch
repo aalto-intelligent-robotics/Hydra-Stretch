@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="dsg_output_prefix"/>
+  <arg name="flat_data_dir" default="$(env HOME)/bags/flat_dataset/run2"/>
+  <arg name="dsg_output_dir" default="$(env HOME)/dsg_output/"/>
+  <arg name="use_gt_semantics" default="true"/>
+  <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/flat_data/semantics"/>
+  <arg name="semantic_map_file" default="flat_segmentation_mapping.csv"/>
+  <arg name="semantic_map_path" default="$(arg semantic_map_dir)/$(arg semantic_map_file)" if="$(arg use_gt_semantics)"/>
+  <arg name="semantic_map_path" default="$(find semantic_recolor)/config/colors/ade150_config.csv" unless="$(arg use_gt_semantics)"/>
+  <arg name="pointcloud_topic" value="semantic_pointcloud"/>
+  <arg name="use_gt_frame" default="true"/>
+  <arg name="sensor_frame" default="depth_cam" unless="$(arg use_gt_frame)"/>
+  <arg name="sensor_frame" default="depth_cam" if="$(arg use_gt_frame)"/>
+  <include file="$(find hydra_stretch)/launch/data_source/flat_data_pointcloud.launch" pass_all_args="true"/>
+  <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
+    <arg name="robot_id" default="0"/>
+    <arg name="config_dir" default="$(find hydra_stretch)/config/flat_data/hydra"/>
+    <arg name="reconstruction_config" default="$(find hydra_stretch)/config/flat_data/hydra/reconstruction_config.yaml"/>
+    <arg name="extrinsics" default="$(find hydra_stretch)/config/flat_data/hydra/extrinsics.yaml"/>
+    <arg name="rviz_dir" default="$(find hydra_stretch)/config/rviz"/>
+    <arg name="rviz_file" default="flat.rviz"/>
+    <arg name="use_oriented_bounding_boxes" default="false"/>
+    <arg name="typology_dir" default="$(find hydra_stretch)/config/flat_data/hydra"/>
+    <arg name="typology_config" default="flat_typology.yaml"/>
+    <arg name="world_frame" default="world"/>
+  </include>
+  <node name="flat_data_player" pkg="hydra_stretch" type="play_flat_data.py" output="screen">
+    <param name="data_path" value="$(arg flat_data_dir)" />
+  </node>
+  <node name="prep_output" pkg="hydra_stretch" type="prep_output.bash" output="screen" args="-n $(arg dsg_output_prefix) -d $(arg dsg_output_dir)" />
+</launch>
