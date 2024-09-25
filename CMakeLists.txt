@@ -4,7 +4,6 @@ project(hydra_stretch)
 find_package(catkin REQUIRED COMPONENTS
   hydra
   hydra_ros
-  kimera_semantics
   roscpp
   rospy
 )
