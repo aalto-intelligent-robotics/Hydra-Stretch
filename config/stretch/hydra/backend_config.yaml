@@ -10,10 +10,9 @@ dsg:
   places_merge_pos_threshold_m: 0.4
   places_merge_distance_tolerance_m: 0.4
   merge_update_dynamic: true
-  merge_update_map:
-    { BUILDINGS: false, ROOMS: false, PLACES: true, OBJECTS: false }
+  merge_update_map: {BUILDINGS: false, ROOMS: false, PLACES: true, OBJECTS: false}
 pgmo:
-  run_mode: 0 # kimera_pgmo run mode FULL (required)
+  run_mode: FULL    # kimera_pgmo run mode FULL is required
   use_msg_time: true
   embed_trajectory_delta_t: 5.0
   num_interp_pts: 3
@@ -68,3 +67,14 @@ room_finder:
   dilation_diff_threshold_m: -1.0
   log_filtrations: false
   log_place_graphs: false
+use_2d_places: true
+places2d_config:
+    allow_places_merge: true
+    merge_max_delta_z: 0.5
+    min_points: 10
+    min_size: 2
+    connection_overlap_threshold: 0
+    connection_max_delta_z: 0.5
+frontier_config:
+    frontier_removal_threshold: 1
+    frontier_removal_check_threshold: 4

@@ -47,9 +47,9 @@ class stretchSegNode:
         )
         if os.path.exists(frame_path):
             frame = cv2.imread(frame_path)
-            # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             self.cnt += 1
-            imgMsg = self.bridge.cv2_to_imgmsg(frame, "bgr8")
+            imgMsg = self.bridge.cv2_to_imgmsg(frame, "rgb8")
             imgMsg.header = msg.header
             self.seg_pub.publish(imgMsg)
             rospy.logdebug(f"Published {frame_path}")

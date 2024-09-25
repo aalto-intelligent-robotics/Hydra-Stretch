@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <arg default="odom" name="odom_frame"/>
+  <arg default="map" name="map_frame"/>
+  <arg default="base_link" name="base_frame"/>
+  <arg default="8" name="max_laser_range"/>
+  <arg default="2" name="map_update_interval"/>
+  <node name="slam_toolbox" output="screen" pkg="slam_toolbox" type="async_slam_toolbox_node">
+    <rosparam command="load" file="$(find slam_toolbox)/config/mapper_params_online_async.yaml"/>
+    <param name="odom_frame" value="$(arg odom_frame)"/>
+    <param name="map_frame" value="$(arg map_frame)"/>
+    <param name="base_frame" value="$(arg base_frame)"/>
+    <param name="max_laser_range" value="$(arg max_laser_range)"/>
+    <param name="map_update_interval" value="$(arg map_update_interval)"/>
+  </node>
+</launch>

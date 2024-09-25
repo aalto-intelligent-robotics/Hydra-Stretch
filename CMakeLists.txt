@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(hydra_stretch)
 
-find_package(catkin REQUIRED COMPONENTS hydra hydra_ros kimera_semantics roscpp
-                                        rospy)
+find_package(hydra REQUIRED)
+find_package(catkin REQUIRED COMPONENTS hydra_msgs hydra_ros roscpp rospy)
 
 catkin_package()
 
