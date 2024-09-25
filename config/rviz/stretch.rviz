@@ -5,15 +5,10 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Scene Graph1
-        - /Scene Graph1/Scene Graph (Static)1
-        - /Scene Graph1/Mesh (Voxblox)1
-        - /Scene Graph1/Mesh (TriangleMesh)1
-        - /Input1
-        - /Topology1
-        - /TF1
-      Splitter Ratio: 0.5
-    Tree Height: 186
+        - /Input1/Semantics1
+        - /Input1/RGB1
+      Splitter Ratio: 0.6264705657958984
+    Tree Height: 368
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -31,9 +26,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: Semantics
-  - Class: slam_toolbox::SlamToolboxPlugin
-    Name: SlamToolboxPlugin
+    SyncSource: Depth
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -41,217 +34,6 @@ Toolbars:
 Visualization Manager:
   Class: ""
   Displays:
-    - Alpha: 0.5
-      Cell Size: 0.5
-      Class: rviz/Grid
-      Color: 160; 160; 164
-      Enabled: false
-      Line Style:
-        Line Width: 0.029999999329447746
-        Value: Lines
-      Name: Grid
-      Normal Cell Count: 0
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Plane: XY
-      Plane Cell Count: 1000
-      Reference Frame: <Fixed Frame>
-      Value: false
-    - Class: rviz/Group
-      Displays:
-        - Class: rviz/MarkerArray
-          Enabled: true
-          Marker Topic: /hydra_dsg_visualizer/dsg_markers
-          Name: Scene Graph (Static)
-          Namespaces:
-            interlayer_edges_3_2: true
-            interlayer_edges_4_3: true
-            interlayer_edges_5_4: true
-            layer_bounding_boxes_2: true
-            layer_bounding_boxes_edges_2: true
-            layer_edges_3: true
-            layer_labels_2: true
-            layer_labels_4: true
-            layer_labels_5: true
-            layer_nodes_2: true
-            layer_nodes_3: true
-            layer_nodes_4: true
-            layer_nodes_5: true
-          Queue Size: 100
-          Value: true
-        - Class: rviz/MarkerArray
-          Enabled: true
-          Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
-          Name: Scene Graph (Dynamic)
-          Namespaces:
-            "dynamic_edges_\x00": true
-            "dynamic_label_\x00": true
-            "dynamic_nodes_\x00": true
-          Queue Size: 100
-          Value: true
-        - Class: voxblox_rviz_plugin/VoxbloxMesh
-          Enabled: true
-          Name: Mesh (Voxblox)
-          Queue Size: 10
-          Topic: /hydra_dsg_visualizer/dsg_mesh/voxblox
-          Unreliable: false
-          Value: true
-        - Class: rviz_mesh_plugin/TriangleMesh
-          Cull Faces: true
-          Display Type:
-            Faces Alpha: 1
-            Faces Color: 0; 255; 0
-            Value: Vertex Color
-          Enabled: true
-          Mesh Buffer Size: 1
-          Name: Mesh (TriangleMesh)
-          Show Normals:
-            Normals Alpha: 1
-            Normals Color: 255; 0; 255
-            Normals Scaling Factor: 0.10000000149011612
-            Value: true
-          Show Wireframe:
-            Value: false
-            Wireframe Alpha: 1
-            Wireframe Color: 0; 0; 0
-          Topic: /hydra_dsg_visualizer/dsg_mesh/pgmo
-          Value: true
-      Enabled: true
-      Name: Scene Graph
-    - Class: rviz/Group
-      Displays:
-        - Alpha: 1
-          Autocompute Intensity Bounds: true
-          Autocompute Value Bounds:
-            Max Value: 10
-            Min Value: -10
-            Value: true
-          Axis: Z
-          Channel Name: intensity
-          Class: rviz/PointCloud2
-          Color: 255; 255; 255
-          Color Transformer: RGB8
-          Decay Time: 0
-          Enabled: false
-          Invert Rainbow: false
-          Max Color: 255; 255; 255
-          Min Color: 0; 0; 0
-          Name: Input Pointcloud
-          Position Transformer: XYZ
-          Queue Size: 10
-          Selectable: true
-          Size (Pixels): 3
-          Size (m): 0.009999999776482582
-          Style: Flat Squares
-          Topic: /semantic_pointcloud
-          Unreliable: false
-          Use Fixed Frame: true
-          Use rainbow: true
-          Value: false
-        - Class: rviz/Image
-          Enabled: true
-          Image Topic: /astra/depth/image_raw
-          Max Value: 1
-          Median window: 300
-          Min Value: 0
-          Name: Depth
-          Normalize Range: true
-          Queue Size: 2
-          Transport Hint: raw
-          Unreliable: false
-          Value: true
-        - Class: rviz/Image
-          Enabled: true
-          Image Topic: /astra/seg_cam/image_raw
-          Max Value: 1
-          Median window: 5
-          Min Value: 0
-          Name: Semantics
-          Normalize Range: true
-          Queue Size: 2
-          Transport Hint: raw
-          Unreliable: false
-          Value: true
-        - Class: rviz/Image
-          Enabled: true
-          Image Topic: /astra/color/image_raw
-          Max Value: 1
-          Median window: 5
-          Min Value: 0
-          Name: RGB
-          Normalize Range: true
-          Queue Size: 2
-          Transport Hint: raw
-          Unreliable: false
-          Value: true
-      Enabled: true
-      Name: Input
-    - Class: rviz/Group
-      Displays:
-        - Class: rviz/Marker
-          Enabled: true
-          Marker Topic: /incremental_dsg_builder_node/pgmo/deformation_graph_mesh_mesh
-          Name: Mesh Edges
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: true
-        - Class: rviz/Marker
-          Enabled: true
-          Marker Topic: /incremental_dsg_builder_node/pgmo/deformation_graph_pose_mesh
-          Name: Pose-Mesh Edges
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: true
-      Enabled: false
-      Name: Factor Graph
-    - Class: rviz/Group
-      Displays:
-        - Class: rviz/MarkerArray
-          Enabled: false
-          Marker Topic: /incremental_dsg_builder_node/topology_visualizer/mesh_block_viz
-          Name: Mesh Allocated Blocks
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: false
-        - Class: rviz/MarkerArray
-          Enabled: false
-          Marker Topic: /incremental_dsg_builder_node/topology_visualizer/voxel_block_viz
-          Name: GVD Allocated Blocks
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: false
-        - Class: rviz/MarkerArray
-          Enabled: false
-          Marker Topic: /incremental_dsg_builder_node/topology_visualizer/gvd_graph_viz
-          Name: GVD Graph
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: false
-        - Class: rviz/MarkerArray
-          Enabled: true
-          Marker Topic: /incremental_dsg_builder_node/topology_visualizer/graph_viz
-          Name: Sparse GVD Graph
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: true
-        - Class: rviz/MarkerArray
-          Enabled: false
-          Marker Topic: /incremental_dsg_builder_node/topology_visualizer/gvd_cluster_viz
-          Name: GVD Clusters
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: false
-      Enabled: true
-      Name: Topology
     - Class: rviz/TF
       Enabled: true
       Filter (blacklist): ""
@@ -302,7 +84,7 @@ Visualization Manager:
         camera_infra2_optical_frame:
           Value: false
         camera_link:
-          Value: true
+          Value: false
         caster_link:
           Value: false
         laser:
@@ -452,6 +234,201 @@ Visualization Manager:
                 {}
       Update Interval: 0
       Value: true
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /hydra_dsg_visualizer/dsg_markers
+          Name: Scene Graph (Static)
+          Namespaces:
+            interlayer_edges_3_2: true
+            interlayer_edges_4_3: true
+            interlayer_edges_5_4: true
+            layer_bounding_boxes_2: true
+            layer_bounding_boxes_edges_2: true
+            layer_edges_20: true
+            layer_edges_3: true
+            layer_edges_4: true
+            layer_labels_2: true
+            layer_labels_4: true
+            layer_labels_5: true
+            layer_nodes_2: true
+            layer_nodes_20: true
+            layer_nodes_3: true
+            layer_nodes_4: true
+            layer_nodes_5: true
+            layer_polygon_boundaries_20: true
+          Queue Size: 100
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
+          Name: Scene Graph (Dynamic)
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: kimera_pgmo_rviz/MeshDisplay
+          Cull Backfaces: true
+          Enable Lighting: false
+          Enabled: true
+          Name: Mesh
+          Queue Size: 10
+          Toggle Visibility All: true
+          Topic: /hydra_dsg_visualizer/dsg_mesh
+          Unreliable: false
+          Value: true
+          Visible:
+            Value: true
+            robot0:
+              Value: true
+              dsg_mesh: true
+      Enabled: true
+      Name: Scene Graph
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: RGB8
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: Input Pointcloud
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /semantic_pointcloud
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+        - Class: rviz/Image
+          Enabled: true
+          Image Topic: /astra/depth/image_raw
+          Max Value: 1
+          Median window: 300
+          Min Value: 0
+          Name: Depth
+          Normalize Range: true
+          Queue Size: 2
+          Transport Hint: raw
+          Unreliable: false
+          Value: true
+        - Class: rviz/Image
+          Enabled: true
+          Image Topic: /astra/seg_cam/image_raw
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: Semantics
+          Normalize Range: true
+          Queue Size: 2
+          Transport Hint: raw
+          Unreliable: false
+          Value: true
+        - Class: rviz/Image
+          Enabled: true
+          Image Topic: /astra/color/image_raw
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: RGB
+          Normalize Range: true
+          Queue Size: 2
+          Transport Hint: raw
+          Unreliable: false
+          Value: true
+      Enabled: true
+      Name: Input
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /incremental_dsg_builder_node/pgmo/deformation_graph_mesh_mesh
+          Name: Mesh Edges
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /incremental_dsg_builder_node/pgmo/deformation_graph_pose_mesh
+          Name: Pose-Mesh Edges
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+      Enabled: false
+      Name: Factor Graph
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/gvd_graph_viz
+          Name: GVD Graph
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/graph_viz
+          Name: Sparse GVD Graph
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/gvd_cluster_viz
+          Name: GVD Clusters
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/esdf_viz
+          Name: EsdfSlice
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+      Enabled: true
+      Name: Places
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/reconstruction/tsdf_viz
+          Name: TSDF Distances
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/reconstruction/tsdf_weight_viz
+          Name: TSDF Weights
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+      Enabled: true
+      Name: Reconstruction
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
@@ -464,7 +441,7 @@ Visualization Manager:
       Value: true
   Enabled: true
   Global Options:
-    Background Color: 154; 154; 154
+    Background Color: 255; 255; 255
     Default Light: true
     Fixed Frame: map
     Frame Rate: 30
@@ -490,7 +467,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 52.23005294799805
+      Distance: 56.264286041259766
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -498,34 +475,32 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 8.018183708190918
-        Y: 2.5461199283599854
-        Z: 14.281412124633789
-      Focal Shape Fixed Size: true
+        X: 4.268866539001465
+        Y: -6.134225845336914
+        Z: 12.683384895324707
+      Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2947978079319
+      Pitch: 0.6797971129417419
       Target Frame: <Fixed Frame>
-      Yaw: 4.125404357910156
+      Yaw: 2.111685276031494
     Saved: ~
 Window Geometry:
   Depth:
     collapsed: false
   Displays:
     collapsed: false
-  Height: 1403
+  Height: 1369
   Hide Left Dock: false
   Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd000000040000000000000259000004d7fc020000000cfb0000001200530065006c0065006300740069006f006e000000003b0000018f0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b000000f5000000c700fffffffb0000000a004400650070007400680100000136000000a50000001600fffffffb0000001200530065006d0061006e007400690063007301000001e1000000b20000001600fffffffb000000060052004700420100000299000000b90000001600fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb000000220053006c0061006d0054006f006f006c0062006f00780050006c007500670069006e0100000358000001ba0000016d00ffffff000000010000010f0000035afc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d0000035a000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000a0000000048fc0100000002fb0000000800540069006d0065010000000000000a000000030700fffffffb0000000800540069006d00650100000000000004500000000000000000000007a1000004d700000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000015600000503fc020000000bfb0000001200530065006c0065006300740069006f006e000000003b0000018f0000005c00fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730200000780000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b000001ab000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0044006500700074006801000001ec0000011c0000001600fffffffb0000001200530065006d0061006e0074006900630073010000030e000001170000001600fffffffb00000006005200470042010000042b000001130000001600ffffff000000010000010f00000351fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003b00000351000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000003efc0100000002fb0000000800540069006d006502000006a2000002580000035e000001e0fb0000000800540069006d006501000000000000045000000000000000000000038a0000050300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   RGB:
     collapsed: false
   Selection:
     collapsed: false
   Semantics:
-    collapsed: false
-  SlamToolboxPlugin:
     collapsed: false
   Time:
     collapsed: false
@@ -533,6 +508,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 2560
-  X: 2560
-  Y: 0
+  Width: 1254
+  X: 1287
+  Y: 52
