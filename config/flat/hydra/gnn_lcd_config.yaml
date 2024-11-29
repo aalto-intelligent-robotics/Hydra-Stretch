@@ -8,30 +8,22 @@ lcd:
   num_semantic_classes: 20
   object_extraction: {fixed_radius: false, max_radius_m: 5.0, min_radius_m: 3.0, min_nodes: 10}
   places_extraction: {fixed_radius: false, max_radius_m: 5.0, min_radius_m: 3.0, min_nodes: 10}
+  agent:
+    min_time_separation_s: 25.0
+    min_score: 0.040
+    min_registration_score: 0.01        # this gets overriden
+    max_registration_matches: 2
+    min_score_ratio: 0.95
+    min_match_separation_m: 0.0
+    type: L1
   gnn_lcd:
     use_onehot_encoding: true
     onehot_encoding_dim: 39
     object_connection_radius_m: 3.0
     objects_pos_in_feature: false
     places_pos_in_feature: false
-  registration_configs:
-    objects:
-      min_correspondences: 5
-      min_inliers: 5
-      log_registration_problem: false
-      registration_output_path: ''
-      recreate_subgraph: true
-      subgraph_extraction: {fixed_radius: true, max_radius_m: 15.0}
-  search_configs:
-    agent:
-      min_time_separation_s: 25.0
-      min_score: 0.040
-      min_registration_score: 0.01        # this gets overriden
-      max_registration_matches: 2
-      min_score_ratio: 0.95
-      min_match_separation_m: 0.0
-      type: L1
-    objects:
+  objects:
+    search:
       min_time_separation_s: 25.0
       min_score: 0.3
       min_registration_score: 0.85  # for non-GT semantics
@@ -40,7 +32,15 @@ lcd:
       min_score_ratio: 0.95
       min_match_separation_m: 5.0
       type: L1
-    places:
+    registration:
+      min_correspondences: 5
+      min_inliers: 5
+      log_registration_problem: false
+      registration_output_path: ''
+      recreate_subgraph: true
+      subgraph_extraction: {fixed_radius: true, max_radius_m: 15.0}
+  places:
+    search:
       min_time_separation_s: 25.0
       min_score: 0.2
       min_registration_score: 1.5
