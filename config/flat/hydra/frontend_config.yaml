@@ -9,8 +9,8 @@ objects:
   active_index_horizon_m: 7.0
   min_cluster_size: 40
   max_cluster_size: 100000
-  cluster_tolerance: 0.25
-min_object_vertices: 40
+  cluster_tolerance: 0.15
+min_object_vertices: 20
 surface_places:
   type: place_2d
   prefix: P
