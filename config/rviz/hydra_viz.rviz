@@ -90,6 +90,14 @@ Visualization Manager:
         robot0:
           Value: true
           dsg_mesh: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /hydra_visualizer/dynamic_layers_viz
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 248; 248; 248
@@ -118,7 +126,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 62.93765640258789
+      Distance: 28.814809799194336
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -126,17 +134,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -7.632749080657959
-        Y: -7.364765167236328
-        Z: 9.109570503234863
+        X: -6.193426609039307
+        Y: -2.6038272380828857
+        Z: 3.5544214248657227
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6503981351852417
+      Pitch: 0.8353979587554932
       Target Frame: <Fixed Frame>
-      Yaw: 0.7203980684280396
+      Yaw: 0.06539851427078247
     Saved: ~
 Window Geometry:
   Displays:

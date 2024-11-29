@@ -100,6 +100,8 @@ class FlatDataPlayer(object):
         seg_path = ""
         if self.seg_model == "gt":
             seg_path = "hydra_seg_gt"
+        if self.seg_model == "gt30":
+            seg_path = "hydra_seg_gt30"
         else:
             raise NotImplementedError
 

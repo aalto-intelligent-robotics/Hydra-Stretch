@@ -1,0 +1,39 @@
+---
+total_semantic_labels: 31
+dynamic_labels: []
+invalid_labels: []
+object_labels: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+structure_labels: [0, 1, 2, 3]
+surface_places_labels: [0, 1, 2]
+label_names:
+  - {label: 0, name: Ceiling}
+  - {label: 1, name: Floor}
+  - {label: 2, name: Wall}
+  - {label: 3, name: Window}
+  - {label: 4, name: Bed}
+  - {label: 5, name: Bed_Lamp}
+  - {label: 6, name: Bed_Table}
+  - {label: 7, name: Ceiling_Lamp}
+  - {label: 8, name: Chair}
+  - {label: 9, name: Coffee_Table}
+  - {label: 10, name: Cup}
+  - {label: 11, name: Decor}
+  - {label: 12, name: Digital_Clock}
+  - {label: 13, name: Dimmer}
+  - {label: 14, name: Door}
+  - {label: 15, name: Floor_Lamp}
+  - {label: 16, name: Journal}
+  - {label: 17, name: Kitchen}
+  - {label: 18, name: Picture}
+  - {label: 19, name: Plant}
+  - {label: 20, name: Plate}
+  - {label: 21, name: Remote}
+  - {label: 22, name: Sofa}
+  - {label: 23, name: Books}
+  - {label: 24, name: Table}
+  - {label: 25, name: Table_Decor}
+  - {label: 26, name: Tumblr}
+  - {label: 27, name: TV}
+  - {label: 28, name: Wall_Clock}
+  - {label: 29, name: Coffee_Machine}
+  - {label: 30, name: Laptop}
