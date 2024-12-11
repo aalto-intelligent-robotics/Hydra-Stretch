@@ -3,6 +3,7 @@ project(hydra_stretch)
 
 find_package(hydra REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
+  hydra_stretch_msgs
   hydra_ros
   roscpp
   rospy

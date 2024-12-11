@@ -2,10 +2,12 @@
 
 import os
 import csv
+import pickle
 
 import rospy
-from sensor_msgs.msg import Image, CameraInfo
-from geometry_msgs.msg import PoseStamped
+from sensor_msgs.msg import Image, CameraInfo 
+from geometry_msgs.msg import PoseStamped 
+from hydra_stretch_msgs.msg import Mask, Masks, HydraVisionPacket
 from cv_bridge import CvBridge
 import cv2
 from PIL import Image as PilImage
@@ -36,8 +38,12 @@ class FlatDataPlayer(object):
         self.color_pub = rospy.Publisher("~color_image", Image, queue_size=100)
         self.depth_pub = rospy.Publisher("~depth_image", Image, queue_size=100)
         self.id_pub = rospy.Publisher("~segmentation_image", Image, queue_size=100)
+        # self.mask_pub = rospy.Publisher("~masks", Masks, queue_size=100)
+        self.packet_pub = rospy.Publisher("~vision_packet", HydraVisionPacket, queue_size=100)
         self.pose_pub = rospy.Publisher("~pose", PoseStamped, queue_size=100)
-        self.cam_info_pub = rospy.Publisher("~depth_camera_info", CameraInfo, queue_size=100)
+        self.cam_info_pub = rospy.Publisher(
+            "~depth_camera_info", CameraInfo, queue_size=100
+        )
         self.tf_broadcaster = tf2_ros.TransformBroadcaster()
 
         # setup
@@ -100,17 +106,28 @@ class FlatDataPlayer(object):
         seg_path = ""
         if self.seg_model == "gt":
             seg_path = "hydra_seg_gt"
-        if self.seg_model == "gt30":
+        elif self.seg_model == "gt30":
             seg_path = "hydra_seg_gt30"
+        elif self.seg_model == "inst":
+            seg_path = "hydra_inst"
         else:
             raise NotImplementedError
-
         pred_file = os.path.join(
             self.data_path,
             seg_path,
             self.ids[self.current_index] + "_segmentation.png",
         )
         files.append(pred_file)
+
+        if self.seg_model == "inst":
+            mask_path = "hydra_inst/mask"
+            mask_file = os.path.join(
+                self.data_path,
+                mask_path,
+                self.ids[self.current_index] + "_masks.pkl",
+            )
+            files.append(mask_file)
+
         for f in files:
             if not os.path.isfile(f):
                 rospy.logwarn("Could not find file '%s', skipping frame." % f)
@@ -126,19 +143,43 @@ class FlatDataPlayer(object):
         self.color_pub.publish(color_img_msg)
 
         # Load and publish ID image.
-        pred_cv_img = cv2.imread(pred_file)
-        pred_cv_img = cv2.cvtColor(pred_cv_img, cv2.COLOR_BGR2RGB)
-        pred_img_msg = self.cv_bridge.cv2_to_imgmsg(pred_cv_img, "rgb8")
-        pred_img_msg.header.stamp = now
-        pred_img_msg.header.frame_id = self.sensor_frame_name
-        self.id_pub.publish(pred_img_msg)
+        label_cv_img = cv2.imread(pred_file)
+        label_cv_img = cv2.cvtColor(label_cv_img, cv2.COLOR_BGR2RGB)
+        label_img_msg = self.cv_bridge.cv2_to_imgmsg(label_cv_img, "rgb8")
+        label_img_msg.header.stamp = now
+        label_img_msg.header.frame_id = self.sensor_frame_name
+        self.id_pub.publish(label_img_msg)
 
-        # Load and publish depth image. These are optional.
+        # Load and publish depth image.
         depth_cv_img = PilImage.open(depth_file)
         depth_img_msg = self.cv_bridge.cv2_to_imgmsg(np.array(depth_cv_img), "32FC1")
         depth_img_msg.header.stamp = now
         depth_img_msg.header.frame_id = self.sensor_frame_name
         self.depth_pub.publish(depth_img_msg)
+
+        if self.seg_model == "inst":
+            # Load and publish instance masks.
+            masks_dict = {}
+            with open(mask_file, "rb") as mf:
+                masks_dict = pickle.load(mf)
+                mf.close()
+            masks_msg = Masks()
+            masks_msg.header.stamp = now
+            masks_msg.header.frame_id = self.sensor_frame_name
+            masks_msg.image_header = color_img_msg.header
+            for mask_dict in masks_dict.values():
+                cls_id, mask = mask_dict["class_id"], mask_dict["mask"]
+                mask_msg = Mask()
+                mask_msg.class_id = cls_id
+                mask_msg.data = self.cv_bridge.cv2_to_imgmsg(mask.astype(np.uint8), "mono8")
+                masks_msg.masks.append(mask_msg)
+            vision_packet_msg = HydraVisionPacket()
+            vision_packet_msg.color = color_img_msg
+            vision_packet_msg.depth = depth_img_msg
+            vision_packet_msg.label = label_img_msg
+            vision_packet_msg.masks = masks_msg
+            self.packet_pub.publish(vision_packet_msg)
+            # self.mask_pub.publish(masks_msg)
 
         # Publish camera info
         # Intrinsics:
@@ -167,7 +208,20 @@ class FlatDataPlayer(object):
         #     [fx'  0  cx' Tx]
         # P = [ 0  fy' cy' Ty]
         #     [ 0   0   1   0]
-        cam_info_msg.P = [320.0, 0.0, 320.0, 0.0, 0.0, 320.0, 240.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+        cam_info_msg.P = [
+            320.0,
+            0.0,
+            320.0,
+            0.0,
+            0.0,
+            320.0,
+            240.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+        ]
         self.cam_info_pub.publish(cam_info_msg)
 
         # Load and publish transform.
