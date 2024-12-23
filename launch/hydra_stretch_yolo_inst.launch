@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="camera_name" default="astra2"/>
+  <!-- Start YOLO ROS node -->
+  <arg name="conf" default="0.5"/>
+  <arg name="model_path" default="/home/ros/models/yolo/yolo11l-seg.engine"/>
+  <arg name="depth_threshold" default="-1"/>
+  <arg name="color_topic" default="/$(arg camera_name)/color/image_raw"/>
+  <arg name="depth_topic" default="/$(arg camera_name)/depth/image_raw"/>
+  <arg name="cam_info_topic" default="/$(arg camera_name)/depth/camera_info"/>
+  <arg name="yolo_verbosity" default="0"/>
+  <arg name="color_mesh_by_label" default="false"/>
+  <include file="$(find hydra_seg_ros)/launch/yolo_ros.launch" pass_all_args="true"/>
+  <!-- End YOLO Node -->
+  <arg name="sim_time_required" default="true"/>
+  <param name="use_sim_time" value="$(arg sim_time_required)"/>
+  <arg name="dataset_name" default="stretch_run00"/>
+  <arg name="dsg_output_dir" default="/home/ros/dsg_output"/>
+  <arg name="dsg_output_prefix" default="$(arg dataset_name)"/>
+  <!-- NOTE: Preparing output directory -->
+  <node name="prep_output" pkg="hydra_stretch" type="prep_output.bash" output="screen" args="-n $(arg dsg_output_prefix) -d $(arg dsg_output_dir)"/>
+  <!-- NOTE: SLAM Node -->
+  <arg name="autosave_2dmap" default="true"/>
+  <arg name="map2d_save_delay" default="5"/>
+  <arg default="slam_toolbox" name="slam_method"/>
+  <group if="$(eval slam_method == 'slam_toolbox')">
+    <include file="$(find hydra_stretch)/launch/slam/slam_toolbox_mapping.launch"/>
+    <group if="$(eval autosave_2dmap)">
+      <node pkg="rosservice" type="rosservice" name="slam_toolbox_map_serializer" args="call /slam_toolbox/serialize_map $(arg dsg_output_dir)/$(arg dsg_output_prefix)/map2d/map2d_serialize" respawn="true" output="log" respawn_delay="$(arg map2d_save_delay)"/>
+      <node pkg="map_server" type="map_saver" name="map_saver" args="-f $(arg dsg_output_dir)/$(arg dsg_output_prefix)/map2d/map2d" respawn="true" output="log" respawn_delay="$(arg map2d_save_delay)"/>
+    </group>
+  </group>
+  <group if="$(eval slam_method == 'hector')">
+    <include file="$(find hydra_stretch)/launch/slam/hector_mapping.launch"/>
+  </group>
+  <!-- NOTE: Hydra node -->
+  <arg name="use_gt_semantics" default="true" doc="use simulator-provider semantics"/>
+  <arg name="use_oriented_bounding_boxes" default="false"/>
+  <arg name="use_2d_places" default="true"/>
+  <arg name="robot_frame" default="base_link" doc="robot body tf frame"/>
+  <arg name="odom_frame" default="odom" doc="odometry (map) frame"/>
+  <arg name="map_frame" default="map" doc="backend scene graph frame"/>
+  <arg name="sensor_frame" default="$(arg camera_name)_link" doc="camera frame"/>
+  <!-- semantics -->
+  <arg name="labelspace_dir" default="$(find hydra_stretch)/config/label_spaces"/>
+  <arg name="labelspace_name" default="stretch" doc="semantic label space"/>
+  <arg name="labelspace_path" default="$(arg labelspace_dir)/instances_label_space.yaml"/>
+  <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/stretch/color" if="$(arg use_gt_semantics)"/>
+  <!-- TODO: Add config for using semantic seg model -->
+  <!-- <arg name="semantic_map_dir" default="$(find semantic_inference)/config/colors" unless="$(arg use_gt_semantics)"/> -->
+  <arg name="semantic_map_path" default="$(arg semantic_map_dir)/instances.csv"/>
+  <!-- Already remapped from oneformer visualization file, so not needed here (the config file is empty) -->
+  <arg name="semantic_label_remap_filepath" default="$(find hydra_stretch)/config/label_remaps/coco.yaml"/>
+  <!-- TODO: Add label topic when using semantic seg model -->
+  <!-- <arg name="label_topic" default="/semantic/image_raw" unless="$(arg use_gt_semantics)"/> -->
+  <!-- sensor configuration -->
+  <arg name="sensor_min_range" default="0.6" doc="minimum sensor range in meters"/>
+  <arg name="sensor_max_range" default="5.0" doc="maximum sensor range in meters"/>
+  <arg name="rgb_info_topic" default="/yolo_ros_node/camera_info"/>
+  <arg name="packet_topic" default="/yolo_ros_node/vision_packet"/>
+  <arg name="config_dir" default="$(find hydra_stretch)/config/stretch/hydra"/>
+  <arg name="input_config_path" default="$(find hydra_stretch)/config/stretch/sensor.yaml"/>
+  <arg name="debug" default="false" doc="Turn on gdb for development process"/>
+  <arg name="verbosity" default="0" doc="Control verbosity level"/>
+  <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
+    <arg name="rviz_dir" default="$(find hydra_stretch)/config/rviz"/>
+    <arg name="rviz_file" default="stretch_$(arg camera_name).rviz"/>
+  </include>
+  <!-- NOTE: Publish TF Frame transformation (from realsense to astra (cus it was the easiest, purely estimation though)) -->
+  <node name="rs_to_astra_tf" pkg="tf2_ros" type="static_transform_publisher" args="0.08 0.11 1.50 -0.5 0.5 -0.5 0.5 base_link $(arg camera_name)_link"/>
+</launch>

@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Input1
         - /Scene Graph1
         - /Scene Graph1/Scene Graph (Static)1
         - /Topology1
@@ -59,18 +60,6 @@ Visualization Manager:
       Displays:
         - Class: rviz/Image
           Enabled: true
-          Image Topic: /flat_data_player/depth/image_raw
-          Max Value: 1
-          Median window: 5
-          Min Value: 0
-          Name: Depth
-          Normalize Range: true
-          Queue Size: 2
-          Transport Hint: raw
-          Unreliable: false
-          Value: true
-        - Class: rviz/Image
-          Enabled: true
           Image Topic: /flat_data_player/color/image_raw
           Max Value: 1
           Median window: 5
@@ -83,7 +72,19 @@ Visualization Manager:
           Value: true
         - Class: rviz/Image
           Enabled: true
-          Image Topic: /flat_data_player/segmentation_image
+          Image Topic: /flat_data_player/depth/image_raw
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: Depth
+          Normalize Range: true
+          Queue Size: 2
+          Transport Hint: raw
+          Unreliable: false
+          Value: true
+        - Class: rviz/Image
+          Enabled: true
+          Image Topic: /yolo_ros_node/label
           Max Value: 1
           Median window: 5
           Min Value: 0
@@ -102,22 +103,7 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dsg_markers
           Name: Scene Graph (Static)
           Namespaces:
-            interlayer_edges_3_2: true
-            interlayer_edges_4_3: true
-            interlayer_edges_5_4: true
-            layer_bounding_boxes_2: true
-            layer_bounding_boxes_edges_2: true
-            layer_edges_20: true
-            layer_edges_3: true
-            layer_labels_2: true
-            layer_labels_4: true
-            layer_labels_5: true
-            layer_nodes_2: true
-            layer_nodes_20: true
-            layer_nodes_3: true
-            layer_nodes_4: true
-            layer_nodes_5: true
-            layer_polygon_boundaries_20: true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -125,9 +111,7 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
           Name: Scene Graph (Dynamic)
           Namespaces:
-            "dynamic_edges_\x00": true
-            "dynamic_label_\x00": true
-            "dynamic_nodes_\x00": true
+            {}
           Queue Size: 100
           Value: true
         - Class: kimera_pgmo_rviz/MeshDisplay
@@ -140,11 +124,7 @@ Visualization Manager:
           Topic: /hydra_dsg_visualizer/dsg_mesh
           Unreliable: false
           Value: true
-          Visible:
-            Value: true
-            robot0:
-              Value: true
-              dsg_mesh: true
+          Visible: true
       Enabled: true
       Name: Scene Graph
     - Class: rviz/Group

@@ -5,8 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Input1/Semantics1
-        - /Input1/RGB1
       Splitter Ratio: 0.6264705657958984
     Tree Height: 368
   - Class: rviz/Selection
@@ -246,18 +244,15 @@ Visualization Manager:
             interlayer_edges_5_4: true
             layer_bounding_boxes_2: true
             layer_bounding_boxes_edges_2: true
-            layer_edges_20: true
             layer_edges_3: true
             layer_edges_4: true
             layer_labels_2: true
             layer_labels_4: true
             layer_labels_5: true
             layer_nodes_2: true
-            layer_nodes_20: true
             layer_nodes_3: true
             layer_nodes_4: true
             layer_nodes_5: true
-            layer_polygon_boundaries_20: true
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -265,7 +260,9 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
           Name: Scene Graph (Dynamic)
           Namespaces:
-            {}
+            "dynamic_edges_\x00": true
+            "dynamic_label_\x00": true
+            "dynamic_nodes_\x00": true
           Queue Size: 100
           Value: true
         - Class: kimera_pgmo_rviz/MeshDisplay
@@ -329,7 +326,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/Image
           Enabled: true
-          Image Topic: /astra/seg_cam/image_raw
+          Image Topic: /yolo_ros_node/label
           Max Value: 1
           Median window: 5
           Min Value: 0
@@ -467,7 +464,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 56.264286041259766
+      Distance: 29.14032554626465
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -475,9 +472,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 4.268866539001465
-        Y: -6.134225845336914
-        Z: 12.683384895324707
+        X: 1.862465262413025
+        Y: -2.044767379760742
+        Z: 6.813545227050781
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

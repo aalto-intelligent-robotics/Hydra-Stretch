@@ -1,0 +1,88 @@
+---
+total_semantic_labels: 80
+dynamic_labels: [0]
+invalid_labels: []
+object_labels: [39, 41, 42, 43, 44, 45, 56, 57, 60, 62, 63, 64, 65, 66, 67, 68, 75, 76]
+structure_labels: []
+surface_places_labels: []
+label_names:
+  - { label: 0, name: person }
+  - { label: 1, name: bicycle }
+  - { label: 2, name: car }
+  - { label: 3, name: motorcycle }
+  - { label: 4, name: airplane }
+  - { label: 5, name: bus }
+  - { label: 6, name: train }
+  - { label: 7, name: truck }
+  - { label: 8, name: boat }
+  - { label: 9, name: traffic light }
+  - { label: 10, name: fire hydrant }
+  - { label: 11, name: stop sign }
+  - { label: 12, name: parking meter }
+  - { label: 13, name: bench }
+  - { label: 14, name: bird }
+  - { label: 15, name: cat }
+  - { label: 16, name: dog }
+  - { label: 17, name: horse }
+  - { label: 18, name: sheep }
+  - { label: 19, name: cow }
+  - { label: 20, name: elephant }
+  - { label: 21, name: bear }
+  - { label: 22, name: zebra }
+  - { label: 23, name: giraffe }
+  - { label: 24, name: backpack }
+  - { label: 25, name: umbrella }
+  - { label: 26, name: handbag }
+  - { label: 27, name: tie }
+  - { label: 28, name: suitcase }
+  - { label: 29, name: frisbee }
+  - { label: 30, name: skis }
+  - { label: 31, name: snowboard }
+  - { label: 32, name: sports_ball }
+  - { label: 33, name: kite }
+  - { label: 34, name: baseball_bat }
+  - { label: 35, name: baseball_glove }
+  - { label: 36, name: skateboard }
+  - { label: 37, name: surfboard }
+  - { label: 38, name: tennis_racket }
+  - { label: 39, name: bottle }
+  - { label: 40, name: wine_glass }
+  - { label: 41, name: cup }
+  - { label: 42, name: fork }
+  - { label: 43, name: knife }
+  - { label: 44, name: spoon }
+  - { label: 45, name: bowl }
+  - { label: 46, name: banana }
+  - { label: 47, name: apple }
+  - { label: 48, name: sandwich }
+  - { label: 49, name: orange }
+  - { label: 50, name: broccoli }
+  - { label: 51, name: carrot }
+  - { label: 52, name: hot dog }
+  - { label: 53, name: pizza }
+  - { label: 54, name: donut }
+  - { label: 55, name: cake }
+  - { label: 56, name: chair }
+  - { label: 57, name: couch }
+  - { label: 58, name: potted_plant }
+  - { label: 59, name: bed }
+  - { label: 60, name: dining_table }
+  - { label: 61, name: toilet }
+  - { label: 62, name: tv }
+  - { label: 63, name: laptop }
+  - { label: 64, name: mouse }
+  - { label: 65, name: remote }
+  - { label: 66, name: keyboard }
+  - { label: 67, name: cell_phone }
+  - { label: 68, name: microwave }
+  - { label: 69, name: oven }
+  - { label: 70, name: toaster }
+  - { label: 71, name: sink }
+  - { label: 72, name: refrigerator }
+  - { label: 73, name: book }
+  - { label: 74, name: clock }
+  - { label: 75, name: vase }
+  - { label: 76, name: scissors }
+  - { label: 77, name: teddy_bear }
+  - { label: 78, name: hair_drier }
+  - { label: 79, name: toothbrush }
