@@ -2,7 +2,7 @@
 pgmo:
   time_horizon: 15.0
   d_graph_resolution: 2.5
-  mesh_resolution: 0.005
+  mesh_resolution: 0.05
 objects:
   prefix: O
   active_horizon_s: 10.0

@@ -11,6 +11,7 @@ Panels:
         - /Input1/Depth1
         - /Input1/Semantics1
         - /Input1/RGB1
+        - /LaserScan1
       Splitter Ratio: 0.6264705657958984
     Tree Height: 389
   - Class: rviz/Selection
@@ -272,9 +273,7 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
           Name: Scene Graph (Dynamic)
           Namespaces:
-            "dynamic_edges_\x00": true
-            "dynamic_label_\x00": true
-            "dynamic_nodes_\x00": true
+            {}
           Queue Size: 100
           Value: true
         - Class: kimera_pgmo_rviz/MeshDisplay
@@ -448,6 +447,34 @@ Visualization Manager:
       Unreliable: false
       Use Timestamp: false
       Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.10000000149011612
+      Style: Flat Squares
+      Topic: /scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 103; 103; 103
@@ -476,7 +503,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.907426834106445
+      Distance: 28.034320831298828
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -484,17 +511,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.6197386980056763
-        Y: -0.7869096398353577
-        Z: 1.0394699573516846
+        X: 1.8081295490264893
+        Y: 3.4220962524414062
+        Z: 1.567991852760315
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6247979402542114
+      Pitch: 1.014797568321228
       Target Frame: <Fixed Frame>
-      Yaw: 1.5266746282577515
+      Yaw: 3.601680278778076
     Saved: ~
 Window Geometry:
   Depth:

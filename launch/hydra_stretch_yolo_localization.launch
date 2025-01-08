@@ -21,17 +21,18 @@
   <!-- NOTE: SLAM Node -->
   <arg name="autosave_2dmap" default="true"/>
   <arg name="map2d_save_delay" default="5"/>
-  <arg name="slam_method" default="slam_toolbox"/>
-  <!-- <group if="$(eval slam_method == 'slam_toolbox')"> -->
-  <include file="$(find hydra_stretch)/launch/slam/slam_toolbox_mapping.launch"/>
+  <arg name="prev_map" default="kitchen_run_4_yolo"/>
+  <arg name="map2d_file" default="$(arg dsg_output_dir)/$(arg prev_map)/map2d/map2d_serialize"/>
+  <arg name="map_start_at_dock" default="true"/>
+  <include file="$(find hydra_stretch)/launch/slam/slam_toolbox_localization.launch">
+    <arg name="map_file_name" default="$(arg map2d_file)"/>
+    <arg name="map_start_at_dock" default="$(arg map_start_at_dock)"/>
+  </include>
+  <node name="map_server" pkg="map_server" type="map_server" output="screen" args="/home/ros/dsg_output/kitchen_run_4_yolo/map2d/map2d.yaml"/>
   <group if="$(eval autosave_2dmap)">
     <node pkg="rosservice" type="rosservice" name="slam_toolbox_map_serializer" args="call /slam_toolbox/serialize_map $(arg dsg_output_dir)/$(arg dsg_output_prefix)/map2d/map2d_serialize" respawn="true" output="log" respawn_delay="$(arg map2d_save_delay)"/>
     <node pkg="map_server" type="map_saver" name="map_saver" args="-f $(arg dsg_output_dir)/$(arg dsg_output_prefix)/map2d/map2d" respawn="true" output="log" respawn_delay="$(arg map2d_save_delay)"/>
   </group>
-  <!-- </group> -->
-  <!-- <group if="$(eval slam_method == 'hector')"> -->
-  <!--   <include file="$(find hydra_stretch)/launch/slam/hector_mapping.launch"/> -->
-  <!-- </group> -->
   <!-- NOTE: Hydra node -->
   <arg name="use_gt_semantics" default="true" doc="use simulator-provider semantics"/>
   <arg name="use_oriented_bounding_boxes" default="false"/>
@@ -63,7 +64,7 @@
   <arg name="verbosity" default="0" doc="Control verbosity level"/>
   <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
     <arg name="rviz_dir" default="$(find hydra_stretch)/config/rviz"/>
-    <arg name="rviz_file" default="stretch_$(arg camera_name).rviz"/>
+    <arg name="rviz_file" default="stretch_$(arg camera_name)_loc.rviz"/>
   </include>
   <!-- NOTE: Publish TF Frame transformation (from realsense to astra (cus it was the easiest, purely estimation though)) -->
   <node name="rs_to_astra_tf" pkg="tf2_ros" type="static_transform_publisher" args="0.08 0.11 1.50 -0.5 0.5 -0.5 0.5 base_link $(arg camera_name)_link"/>
