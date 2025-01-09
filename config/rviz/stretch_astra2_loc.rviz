@@ -259,6 +259,7 @@ Visualization Manager:
             layer_bounding_boxes_2: true
             layer_bounding_boxes_edges_2: true
             layer_edges_3: true
+            layer_edges_4: true
             layer_labels_2: true
             layer_labels_4: true
             layer_labels_5: true
@@ -273,7 +274,9 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
           Name: Scene Graph (Dynamic)
           Namespaces:
-            {}
+            "dynamic_edges_\x00": true
+            "dynamic_label_\x00": true
+            "dynamic_nodes_\x00": true
           Queue Size: 100
           Value: true
         - Class: kimera_pgmo_rviz/MeshDisplay
@@ -475,6 +478,23 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
+      Class: rviz/PoseArray
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: PoseArray
+      Queue Size: 10
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Arrow (Flat)
+      Topic: /particlecloud
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 103; 103; 103
@@ -503,7 +523,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 28.034320831298828
+      Distance: 36.37631607055664
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -511,17 +531,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.8081295490264893
-        Y: 3.4220962524414062
-        Z: 1.567991852760315
+        X: 4.972955703735352
+        Y: 3.893005132675171
+        Z: 0.9282849431037903
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.014797568321228
+      Pitch: 0.7747976779937744
       Target Frame: <Fixed Frame>
-      Yaw: 3.601680278778076
+      Yaw: 3.511679172515869
     Saved: ~
 Window Geometry:
   Depth:
