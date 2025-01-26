@@ -35,14 +35,14 @@ class FlatDataPlayer(object):
         self.refresh_rate = 100.0  # Hz
 
         # ROS
-        self.color_pub = rospy.Publisher("~color_image", Image, queue_size=100)
-        self.depth_pub = rospy.Publisher("~depth_image", Image, queue_size=100)
+        self.color_pub = rospy.Publisher("~color/image_raw", Image, queue_size=100)
+        self.depth_pub = rospy.Publisher("~depth/image_raw", Image, queue_size=100)
         self.id_pub = rospy.Publisher("~segmentation_image", Image, queue_size=100)
         # self.mask_pub = rospy.Publisher("~masks", Masks, queue_size=100)
         self.packet_pub = rospy.Publisher("~vision_packet", HydraVisionPacket, queue_size=100)
         self.pose_pub = rospy.Publisher("~pose", PoseStamped, queue_size=100)
         self.cam_info_pub = rospy.Publisher(
-            "~depth_camera_info", CameraInfo, queue_size=100
+            "~depth/camera_info", CameraInfo, queue_size=100
         )
         self.tf_broadcaster = tf2_ros.TransformBroadcaster()
 
@@ -110,14 +110,17 @@ class FlatDataPlayer(object):
             seg_path = "hydra_seg_gt30"
         elif self.seg_model == "inst":
             seg_path = "hydra_inst"
+        elif self.seg_model == "none":
+            seg_path = ""
         else:
             raise NotImplementedError
-        pred_file = os.path.join(
-            self.data_path,
-            seg_path,
-            self.ids[self.current_index] + "_segmentation.png",
-        )
-        files.append(pred_file)
+        if seg_path != "":
+            pred_file = os.path.join(
+                self.data_path,
+                seg_path,
+                self.ids[self.current_index] + "_segmentation.png",
+            )
+            files.append(pred_file)
 
         if self.seg_model == "inst":
             mask_path = "hydra_inst/mask"
@@ -143,12 +146,13 @@ class FlatDataPlayer(object):
         self.color_pub.publish(color_img_msg)
 
         # Load and publish ID image.
-        label_cv_img = cv2.imread(pred_file)
-        label_cv_img = cv2.cvtColor(label_cv_img, cv2.COLOR_BGR2RGB)
-        label_img_msg = self.cv_bridge.cv2_to_imgmsg(label_cv_img, "rgb8")
-        label_img_msg.header.stamp = now
-        label_img_msg.header.frame_id = self.sensor_frame_name
-        self.id_pub.publish(label_img_msg)
+        if seg_path != "":
+            label_cv_img = cv2.imread(pred_file)
+            label_cv_img = cv2.cvtColor(label_cv_img, cv2.COLOR_BGR2RGB)
+            label_img_msg = self.cv_bridge.cv2_to_imgmsg(label_cv_img, "rgb8")
+            label_img_msg.header.stamp = now
+            label_img_msg.header.frame_id = self.sensor_frame_name
+            self.id_pub.publish(label_img_msg)
 
         # Load and publish depth image.
         depth_cv_img = PilImage.open(depth_file)
@@ -179,7 +183,6 @@ class FlatDataPlayer(object):
             vision_packet_msg.label = label_img_msg
             vision_packet_msg.masks = masks_msg
             self.packet_pub.publish(vision_packet_msg)
-            # self.mask_pub.publish(masks_msg)
 
         # Publish camera info
         # Intrinsics:

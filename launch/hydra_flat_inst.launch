@@ -33,9 +33,9 @@
   <arg name="sensor_min_range" default="0.5" doc="minimum sensor range in meters"/>
   <arg name="sensor_max_range" default="8.0" doc="maximum sensor range in meters"/>
   <!-- <arg name="rgb_topic" default="$(eval '/flat_data_player/segmentation_image' if arg('color_mesh_by_label') else '/flat_data_player/color_image')"/> -->
-  <arg name="rgb_topic" default="/flat_data_player/color_image"/>
-  <arg name="rgb_info_topic" default="/flat_data_player/depth_camera_info"/>
-  <arg name="depth_topic" default="/flat_data_player/depth_image"/>
+  <arg name="rgb_topic" default="/flat_data_player/color/image_raw"/>
+  <arg name="rgb_info_topic" default="/flat_data_player/depth/camera_info"/>
+  <arg name="depth_topic" default="/flat_data_player/depth/image_raw"/>
   <arg name="label_topic" default="/flat_data_player/segmentation_image"/>
   <arg name="packet_topic" default="/flat_data_player/vision_packet"/>
   <arg name="config_dir" default="$(find hydra_stretch)/config/flat_inst/hydra"/>
@@ -46,7 +46,9 @@
     <arg name="rviz_dir" default="$(find hydra_stretch)/config/rviz"/>
     <arg name="rviz_file" default="flat.rviz"/>
   </include>
+  <arg name="data_path" default="/home/ros/bags/flat_dataset/run1" />
   <node name="flat_data_player" pkg="hydra_stretch" type="play_flat_data.py" output="screen">
     <param name="seg_model" value="inst" />
+    <param name="data_path" value="$(arg data_path)" />
   </node>
 </launch>

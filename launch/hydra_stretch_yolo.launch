@@ -66,5 +66,8 @@
     <arg name="rviz_file" default="stretch_$(arg camera_name).rviz"/>
   </include>
   <!-- NOTE: Publish TF Frame transformation (from realsense to astra (cus it was the easiest, purely estimation though)) -->
-  <node name="rs_to_astra_tf" pkg="tf2_ros" type="static_transform_publisher" args="0.08 0.11 1.50 -0.5 0.5 -0.5 0.5 base_link $(arg camera_name)_link"/>
+  <!-- RPY: -90 0 -90 deg tf -->
+  <!-- <node name="rs_to_astra_tf" pkg="tf2_ros" type="static_transform_publisher" args="0.08 0.11 1.50 -0.5 0.5 -0.5 0.5 base_link $(arg camera_name)_link"/> -->
+  <!-- RPY: -100 0 -90 deg tf (camera tilted forward slightly) -->
+  <node name="rs_to_astra_tf" pkg="tf2_ros" type="static_transform_publisher" args="0.08 0.11 1.50 -0.5416752204197021 0.541675220419702 -0.45451947767204376 0.4545194776720438 base_link $(arg camera_name)_link"/>
 </launch>

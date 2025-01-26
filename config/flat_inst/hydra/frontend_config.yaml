@@ -10,7 +10,10 @@ objects:
   min_cluster_size: 40
   max_cluster_size: 100000
   cluster_tolerance: 0.15
+  min_mesh_z: -0.7
+  processing_grid_size: 0.08
 min_object_vertices: 20
+min_valid_views: 1
 surface_places:
   type: place_2d
   prefix: P
