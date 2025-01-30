@@ -21,16 +21,8 @@
   <!-- NOTE: SLAM Node -->
   <arg name="autosave_2dmap" default="true"/>
   <arg name="map2d_save_delay" default="5"/>
-  <arg name="prev_map" default="kitchen4"/>
-  <!---->
-  <!-- NOTE: AMCL localization -->
-  <!---->
-  <!-- <arg name="map2d_file" default="$(arg dsg_output_dir)/$(arg prev_map)/map2d/map2d.yaml"/> -->
-  <!-- <include file="$(find amcl)/examples/amcl_diff.launch"/> -->
-  <!-- <node name="map_server" pkg="map_server" type="map_server" output="screen" args="$(arg map2d_file)"/> -->
-  <!---->
   <!-- NOTE: SLAM_TOOLBOX localization -->
-  <!---->
+  <arg name="prev_map" default="kitchen4"/>
   <arg name="map2d_file" default="$(arg dsg_output_dir)/$(arg prev_map)/map2d/map2d_serialize"/>
   <arg name="map_start_at_dock" default="false"/>
   <!-- <arg name="map_start_pose" default="[0.0, 0.0, 0.0]"/> -->

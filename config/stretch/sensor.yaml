@@ -4,8 +4,8 @@ tf_verbosity: 1
 clear_queue_on_fail: true
 receivers:
   - type: ImageReceiver
-    skip_frame: 20
-    queue_size: 50
+    skip_frame: 10
+    queue_size: 1
     sensor:
       type: camera_info
       min_range: $(arg sensor_min_range)
