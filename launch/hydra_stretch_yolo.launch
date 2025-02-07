@@ -9,6 +9,8 @@
   <arg name="cam_info_topic" default="/$(arg camera_name)/depth/camera_info"/>
   <arg name="yolo_verbosity" default="0"/>
   <arg name="color_mesh_by_label" default="false"/>
+  <arg name="im_width" default="800" />
+  <arg name="im_height" default="600" />
   <include file="$(find hydra_seg_ros)/launch/yolo_ros.launch" pass_all_args="true"/>
   <!-- End YOLO Node -->
   <arg name="sim_time_required" default="true"/>

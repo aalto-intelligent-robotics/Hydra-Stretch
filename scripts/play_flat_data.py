@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from cProfile import label
 import os
 import csv
 import pickle
@@ -21,6 +22,70 @@ import tf2_ros
 from std_srvs.srv import Empty, EmptyResponse
 
 CLASS_IDS = [2, 6, 7, 8, 13, 14, 16, 18, 20, 22, 27]
+
+CLASS_TO_COLOR = {
+    0: [0, 0, 0],
+    1: [102, 0, 204],
+    2: [125, 218, 3],
+    3: [32, 32, 32],
+    4: [102, 255, 0],
+    5: [23, 23, 255],
+    6: [35, 100, 35],
+    7: [39, 144, 65],
+    8: [255, 20, 127],
+    9: [62, 146, 211],
+    10: [246, 188, 6],
+    11: [38, 112, 233],
+    12: [175, 32, 45],
+    13: [54, 176, 239],
+    14: [244, 228, 69],
+    15: [154, 38, 91],
+    16: [2, 103, 71],
+    17: [35, 213, 234],
+    18: [250, 50, 50],
+    19: [110, 50, 50],
+    20: [50, 80, 110],
+    21: [60, 180, 110],
+    22: [160, 80, 110],
+    23: [170, 180, 30],
+    24: [100, 130, 255],
+    25: [90, 60, 30],
+    26: [90, 60, 130],
+    27: [190, 60, 130],
+    28: [70, 160, 130],
+}
+
+CLASS_TO_NAME = {
+    0: "Background",
+    1: "Window",
+    2: "Bed",
+    3: "Bed_Lamp",
+    4: "Bed_Table",
+    5: "Ceiling_Lamp",
+    6: "Chair",
+    7: "Coffee_Table",
+    8: "Cup",
+    9: "Decor",
+    10: "Digital_Clock",
+    11: "Dimmer",
+    12: "Door",
+    13: "Floor_Lamp",
+    14: "Journal",
+    15: "Kitchen",
+    16: "Picture",
+    17: "Plant",
+    18: "Plate",
+    19: "Remote",
+    20: "Sofa",
+    21: "Books",
+    22: "Table",
+    23: "Table_Decor",
+    24: "Tumblr",
+    25: "TV",
+    26: "Wall_Clock",
+    27: "Coffee_Machine",
+    28: "Laptop",
+}
 
 
 class FlatDataPlayer(object):
@@ -120,7 +185,7 @@ class FlatDataPlayer(object):
                 self.current_index += 1
                 return
 
-    def get_color_image(self, color_cv_img: np.ndarray, stamp: rospy.Time) -> Image:
+    def get_color_image_mgs(self, color_cv_img: np.ndarray, stamp: rospy.Time) -> Image:
 
         # Load and publish Color image.
         color_cv_img = cv2.cvtColor(color_cv_img, cv2.COLOR_BGR2RGB)
@@ -137,19 +202,23 @@ class FlatDataPlayer(object):
         depth_img_msg.header.frame_id = self.sensor_frame_name
         return depth_img_msg
 
-    def get_masks_msg(
-        self, mask_file: str, stamp: rospy.Time, image_header: Header
-    ) -> Masks:
-        # Load and publish instance masks.
+    def get_masks(self, mask_file: str) -> Dict:
         masks_dict = {}
         with open(mask_file, "rb") as mf:
             masks_dict = pickle.load(mf)
             mf.close()
+        return masks_dict
+
+    def get_masks_msg(
+        self, masks_dict: Dict, stamp: rospy.Time, image_header: Header
+    ) -> Tuple[Masks, np.ndarray]:
+        # Load and publish instance masks.
         masks_msg = Masks()
         masks_msg.masks = []
         masks_msg.header.stamp = stamp
         masks_msg.header.frame_id = self.sensor_frame_name
         masks_msg.image_header = image_header
+        sem_img = np.zeros([480, 640, 3])
         for mask_dict in masks_dict.values():
             cls_id, mask = mask_dict["class_id"], mask_dict["mask"]
             if cls_id in CLASS_IDS:
@@ -160,7 +229,13 @@ class FlatDataPlayer(object):
                 mask_msg.mask_id = self.mask_id
                 self.mask_id += 1
                 masks_msg.masks.append(mask_msg)
-        return masks_msg
+                color = np.ones([480, 640, 3])
+                color[:, :, 0] *= CLASS_TO_COLOR[cls_id][0]
+                color[:, :, 1] *= CLASS_TO_COLOR[cls_id][1]
+                color[:, :, 2] *= CLASS_TO_COLOR[cls_id][2]
+                color_mask = cv2.bitwise_and(color, color, mask=mask.astype(np.uint8))
+                sem_img += color_mask
+        return (masks_msg, sem_img.astype(np.uint8))
 
     def get_camera_info_msg(self, stamp: rospy.Time) -> CameraInfo:
         # Publish camera info
@@ -272,14 +347,20 @@ class FlatDataPlayer(object):
         vision_packet_msg.map_view_id = self.current_index
         depth_img_msg = self.get_depth_image(files["depth"], now)
         self.depth_pub.publish(depth_img_msg)
-        color_img_msg = self.get_color_image(cv2.imread(files["color"]), now)
+        color_img_msg = self.get_color_image_mgs(cv2.imread(files["color"]), now)
         self.color_pub.publish(color_img_msg)
         if "semantics" in files.keys():
-            label_img_msg = self.get_color_image(cv2.imread(files["semantics"]), now)
+            label_img_msg = self.get_color_image_mgs(cv2.imread(files["semantics"]), now)
             vision_packet_msg.label = label_img_msg
             self.id_pub.publish(label_img_msg)
         if "masks" in files.keys():
-            masks_msg = self.get_masks_msg(files["masks"], now, color_img_msg.header)
+            masks_dict = self.get_masks(files["masks"])
+            masks_msg, sem_img = self.get_masks_msg(
+                masks_dict, now, color_img_msg.header
+            )
+            # label_img_msg = self.get_color_image_mgs(sem_img, now)
+            # self.id_pub.publish(label_img_msg)
+            # vision_packet_msg.label = label_img_msg
             vision_packet_msg.masks = masks_msg
         vision_packet_msg.color = color_img_msg
         vision_packet_msg.depth = depth_img_msg

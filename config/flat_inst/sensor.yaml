@@ -5,7 +5,7 @@ clear_queue_on_fail: true
 receivers:
   - type: ImageReceiver
     skip_frame: -1
-    queue_size: 10
+    queue_size: 1
     sensor:
       type: camera_info
       min_range: $(arg sensor_min_range)
