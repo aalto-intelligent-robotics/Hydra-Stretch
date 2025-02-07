@@ -3,7 +3,7 @@
   <arg name="visualizer_frame" default="map"/>
   <arg name="scene_graph" doc="scene graph filename to show"/>
   <arg name="scene_graph_dir" default="/home/ros/dsg_output" doc="directory of scene graph file"/>
-  <arg name="backend" default="true"/>
+  <arg name="backend" default="false"/>
   <arg name="dsg_type" default="$(eval 'backend' if arg('backend') else 'frontend')"/>
   <arg name="with_mesh" default="true"/>
   <arg name="dsg_file" default="$(eval 'dsg_with_mesh.json' if arg('with_mesh') else 'dsg.json')"/>

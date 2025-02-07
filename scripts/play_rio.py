@@ -91,12 +91,15 @@ class RioPlayer(object):
         self.color_cam.center_y = float(lines[7][30:].split()[6])
         self.color_cam.fx = float(lines[7][30:].split()[0])
         self.color_cam.fy = float(lines[7][30:].split()[5])
-        self.depth_cam.width = int(lines[4][15:])
-        self.depth_cam.height = int(lines[5][16:])
-        self.depth_cam.center_x = float(lines[9][30:].split()[2])
-        self.depth_cam.center_y = float(lines[9][30:].split()[6])
-        self.depth_cam.fx = float(lines[9][30:].split()[0])
-        self.depth_cam.fy = float(lines[9][30:].split()[5])
+        if self.use_rendered_data:
+            self.depth_cam = self.color_cam
+        else:
+            self.depth_cam.width = int(lines[4][15:])
+            self.depth_cam.height = int(lines[5][16:])
+            self.depth_cam.center_x = float(lines[9][30:].split()[2])
+            self.depth_cam.center_y = float(lines[9][30:].split()[6])
+            self.depth_cam.fx = float(lines[9][30:].split()[0])
+            self.depth_cam.fy = float(lines[9][30:].split()[5])
 
         # Get transform to reference
         ref_file = os.path.join(self.base_path, "3RScan.json")

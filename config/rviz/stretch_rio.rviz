@@ -85,7 +85,9 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
           Name: Scene Graph (Dynamic)
           Namespaces:
-            {}
+            "dynamic_edges_\x00": true
+            "dynamic_label_\x00": true
+            "dynamic_nodes_\x00": true
           Queue Size: 100
           Value: true
         - Class: kimera_pgmo_rviz/MeshDisplay
@@ -98,7 +100,11 @@ Visualization Manager:
           Topic: /hydra_dsg_visualizer/dsg_mesh
           Unreliable: false
           Value: true
-          Visible: true
+          Visible:
+            Value: true
+            robot0:
+              Value: true
+              dsg_mesh: true
       Enabled: true
       Name: Scene Graph
     - Class: rviz/Group
@@ -145,7 +151,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/Image
           Enabled: true
-          Image Topic: /rio_player/color/image_raw
+          Image Topic: /yolo_ros_node/label
           Max Value: 1
           Median window: 5
           Min Value: 0

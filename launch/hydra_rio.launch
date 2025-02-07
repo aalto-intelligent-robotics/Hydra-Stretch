@@ -9,11 +9,12 @@
   <arg name="cam_info_topic" default="/rio_player/depth/camera_info"/>
   <arg name="yolo_verbosity" default="0"/>
   <arg name="color_mesh_by_label" default="false"/>
+  <arg name="rot_90" default="true"/>
   <include file="$(find hydra_seg_ros)/launch/yolo_ros.launch" pass_all_args="true"/>
   <!-- End YOLO Node -->
   <arg name="sim_time_required" default="false"/>
   <param name="use_sim_time" value="$(arg sim_time_required)"/>
-  <arg name="dataset_name" default="stretch_run00"/>
+  <arg name="dataset_name" default="rio"/>
   <arg name="dsg_output_dir" default="/home/ros/dsg_output"/>
   <arg name="dsg_output_prefix" default="$(arg dataset_name)"/>
   <!-- NOTE: Preparing output directory -->
@@ -30,8 +31,8 @@
   <arg name="labelspace_dir" default="$(find hydra_stretch)/config/label_spaces"/>
   <arg name="labelspace_name" default="coco_kitchen_large_objects" doc="semantic label space"/>
   <arg name="labelspace_path" default="$(arg labelspace_dir)/$(arg labelspace_name)_label_space.yaml"/>
-  <arg name="pipeline_path" default="$(find hydra_stretch)/config/stretch/hydra/pipeline.yaml"/>
-  <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/stretch/color" if="$(arg use_gt_semantics)"/>
+  <arg name="pipeline_path" default="$(find hydra_stretch)/config/rio/hydra/pipeline.yaml"/>
+  <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/rio/color" if="$(arg use_gt_semantics)"/>
   <!-- TODO: Add config for using semantic seg model -->
   <!-- <arg name="semantic_map_dir" default="$(find semantic_inference)/config/colors" unless="$(arg use_gt_semantics)"/> -->
   <arg name="semantic_map_path" default="$(arg semantic_map_dir)/coco.csv"/>
@@ -41,11 +42,11 @@
   <!-- <arg name="label_topic" default="/semantic/image_raw" unless="$(arg use_gt_semantics)"/> -->
   <!-- sensor configuration -->
   <arg name="sensor_min_range" default="0.01" doc="minimum sensor range in meters"/>
-  <arg name="sensor_max_range" default="3.0" doc="maximum sensor range in meters"/>
+  <arg name="sensor_max_range" default="5.0" doc="maximum sensor range in meters"/>
   <arg name="rgb_info_topic" default="/yolo_ros_node/camera_info"/>
   <arg name="packet_topic" default="/yolo_ros_node/vision_packet"/>
-  <arg name="config_dir" default="$(find hydra_stretch)/config/stretch/hydra"/>
-  <arg name="input_config_path" default="$(find hydra_stretch)/config/stretch/sensor.yaml"/>
+  <arg name="config_dir" default="$(find hydra_stretch)/config/rio/hydra"/>
+  <arg name="input_config_path" default="$(find hydra_stretch)/config/rio/sensor.yaml"/>
   <arg name="debug" default="false" doc="Turn on gdb for development process"/>
   <arg name="verbosity" default="0" doc="Control verbosity level"/>
   <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
