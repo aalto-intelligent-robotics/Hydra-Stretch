@@ -2,7 +2,7 @@
 <launch>
   <arg name="camera_name" default="astra2"/>
   <!-- Start YOLO ROS node -->
-  <arg name="conf" default="0.5"/>
+  <arg name="conf" default="0.4"/>
   <arg name="model_path" default="/home/ros/models/yolo/yolo11l-seg.engine"/>
   <arg name="color_topic" default="/$(arg camera_name)/color/image_raw"/>
   <arg name="depth_topic" default="/$(arg camera_name)/depth/image_raw"/>
@@ -11,6 +11,7 @@
   <arg name="color_mesh_by_label" default="false"/>
   <arg name="im_width" default="800" />
   <arg name="im_height" default="600" />
+  <arg name="rot_90" default="0"/>
   <include file="$(find hydra_seg_ros)/launch/yolo_ros.launch" pass_all_args="true"/>
   <!-- End YOLO Node -->
   <arg name="sim_time_required" default="true"/>

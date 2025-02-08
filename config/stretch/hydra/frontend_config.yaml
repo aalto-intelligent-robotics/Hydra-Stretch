@@ -4,22 +4,22 @@ previous_dsg: /home/ros/dsg_output/kitchen1/
 pgmo:
   time_horizon: 15.0
   d_graph_resolution: 2.5
-  mesh_resolution: 0.005
+  mesh_resolution: 0.01
 objects:
   prefix: O
   active_horizon_s: 10.0
   active_index_horizon_m: 7.0
-  min_cluster_size: 40
+  min_cluster_size: 20
   max_cluster_size: 100000
   cluster_tolerance: 0.25
-  min_mesh_z: 0.1
+  min_mesh_z: 0.0
   processing_grid_size: 0.05
   skip_clustering: false
   use_kdtree_distance_check: true
   nodes_match_iou_threshold: 0.3
   merge_active_nodes: false
-  close_to_cloud_threshold: 0.005
-min_object_vertices: 40
+  close_to_cloud_threshold: 0.025
+min_object_vertices: 20
 min_valid_views: 3
 surface_places:
   type: place_2d

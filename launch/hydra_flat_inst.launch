@@ -30,7 +30,7 @@
   <arg name="semantic_map_path" default="$(arg semantic_map_dir)/$(arg labelspace_name).csv"/>
   <arg name="semantic_label_remap_filepath" default="$(find hydra_stretch)/config/label_remaps/$(arg labelspace_name).yaml"/>
   <arg name="sensor_min_range" default="1.0" doc="minimum sensor range in meters"/>
-  <arg name="sensor_max_range" default="3.0" doc="maximum sensor range in meters"/>
+  <arg name="sensor_max_range" default="8.0" doc="maximum sensor range in meters"/>
   <arg name="rgb_topic" default="/flat_data_player/color/image_raw"/>
   <arg name="rgb_info_topic" default="/flat_data_player/depth/camera_info"/>
   <arg name="depth_topic" default="/flat_data_player/depth/image_raw"/>

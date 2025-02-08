@@ -106,7 +106,7 @@ class FlatDataPlayer(object):
             max_frames, int
         ), f"max_frames needs to be int, got {max_frames}"
         self.max_frames = max_frames
-        self.timer_pediod = 0.5  # seconds
+        self.timer_period = 1.5  # seconds
 
         # ROS
         self.color_pub = rospy.Publisher("~color/image_raw", Image, queue_size=100)
@@ -150,7 +150,9 @@ class FlatDataPlayer(object):
 
     def start(self, _):
         self.running = True
-        self.timer = rospy.Timer(rospy.Duration(self.timer_pediod), self.callback)
+        self.timer = rospy.Timer(
+            rospy.Duration.from_sec(self.timer_period), self.callback
+        )
         return EmptyResponse()
 
     def get_semantics(self, files: Dict):
@@ -350,7 +352,9 @@ class FlatDataPlayer(object):
         color_img_msg = self.get_color_image_mgs(cv2.imread(files["color"]), now)
         self.color_pub.publish(color_img_msg)
         if "semantics" in files.keys():
-            label_img_msg = self.get_color_image_mgs(cv2.imread(files["semantics"]), now)
+            label_img_msg = self.get_color_image_mgs(
+                cv2.imread(files["semantics"]), now
+            )
             vision_packet_msg.label = label_img_msg
             self.id_pub.publish(label_img_msg)
         if "masks" in files.keys():

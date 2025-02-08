@@ -11,7 +11,7 @@ objects:
   max_cluster_size: 10000
   cluster_tolerance: 0.25
   min_mesh_z: -0.8
-  processing_grid_size: 0.01
+  processing_grid_size: 0.05
   skip_clustering: true
   use_kdtree_distance_check: false
   nodes_match_iou_threshold: 0.2
