@@ -29,7 +29,7 @@ CLASS_TO_COLOR = {
     2: [125, 218, 3],
     3: [32, 32, 32],
     4: [102, 255, 0],
-    5: [23, 23, 255],
+    5: [255, 23, 23],
     6: [35, 100, 35],
     7: [39, 144, 65],
     8: [255, 20, 127],
@@ -187,10 +187,11 @@ class FlatDataPlayer(object):
                 self.current_index += 1
                 return
 
-    def get_color_image_mgs(self, color_cv_img: np.ndarray, stamp: rospy.Time) -> Image:
+    def get_color_image_mgs(self, color_cv_img: np.ndarray, stamp: rospy.Time, bgr2rgb: bool = True) -> Image:
 
         # Load and publish Color image.
-        color_cv_img = cv2.cvtColor(color_cv_img, cv2.COLOR_BGR2RGB)
+        if bgr2rgb:
+            color_cv_img = cv2.cvtColor(color_cv_img, cv2.COLOR_BGR2RGB)
         color_img_msg = self.cv_bridge.cv2_to_imgmsg(color_cv_img, "rgb8")
         color_img_msg.header.stamp = stamp
         color_img_msg.header.frame_id = self.sensor_frame_name
@@ -349,22 +350,16 @@ class FlatDataPlayer(object):
         vision_packet_msg.map_view_id = self.current_index
         depth_img_msg = self.get_depth_image(files["depth"], now)
         self.depth_pub.publish(depth_img_msg)
-        color_img_msg = self.get_color_image_mgs(cv2.imread(files["color"]), now)
+        color_img_msg = self.get_color_image_mgs(cv2.imread(files["color"]), now, bgr2rgb=True)
         self.color_pub.publish(color_img_msg)
-        if "semantics" in files.keys():
-            label_img_msg = self.get_color_image_mgs(
-                cv2.imread(files["semantics"]), now
-            )
-            vision_packet_msg.label = label_img_msg
-            self.id_pub.publish(label_img_msg)
         if "masks" in files.keys():
             masks_dict = self.get_masks(files["masks"])
             masks_msg, sem_img = self.get_masks_msg(
                 masks_dict, now, color_img_msg.header
             )
-            # label_img_msg = self.get_color_image_mgs(sem_img, now)
-            # self.id_pub.publish(label_img_msg)
-            # vision_packet_msg.label = label_img_msg
+            label_img_msg = self.get_color_image_mgs(sem_img, now, bgr2rgb=False)
+            self.id_pub.publish(label_img_msg)
+            vision_packet_msg.label = label_img_msg
             vision_packet_msg.masks = masks_msg
         vision_packet_msg.color = color_img_msg
         vision_packet_msg.depth = depth_img_msg
