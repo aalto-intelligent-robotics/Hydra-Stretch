@@ -63,7 +63,7 @@ Visualization Manager:
           Max Value: 1
           Median window: 5
           Min Value: 0
-          Name: Depth
+          Name: RGB
           Normalize Range: true
           Queue Size: 2
           Transport Hint: raw
@@ -83,7 +83,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/Image
           Enabled: true
-          Image Topic: /flat_data_player/segmentation_image
+          Image Topic: /flat_data_player/semantics/image_raw
           Max Value: 1
           Median window: 5
           Min Value: 0
@@ -220,7 +220,7 @@ Visualization Manager:
         All Enabled: false
         depth_cam:
           Value: true
-        world:
+        map:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -229,7 +229,7 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        world:
+        map:
           depth_cam:
             {}
       Update Interval: 0
@@ -238,7 +238,7 @@ Visualization Manager:
   Global Options:
     Background Color: 154; 154; 154
     Default Light: true
-    Fixed Frame: world
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -270,9 +270,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -1.096207857131958
-        Y: 2.394207000732422
-        Z: 8.288263320922852
+        X: -0.004396986216306686
+        Y: 3.003758668899536
+        Z: 9.10362720489502
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

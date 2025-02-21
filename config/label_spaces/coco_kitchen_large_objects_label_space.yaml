@@ -2,7 +2,7 @@
 total_semantic_labels: 80
 dynamic_labels: [0]
 invalid_labels: []
-object_labels: [39, 41, 42, 43, 44, 45, 56, 57, 60, 63, 64, 65, 66, 67, 75, 76] # Potted plant still a bit problematic to map
+object_labels: [56, 57, 60]  # chair, couch, dining_table (avoiding small objects due to not enough pixels to reliably map+separate them)
 structure_labels: []
 surface_places_labels: []
 label_names:

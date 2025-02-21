@@ -4,7 +4,7 @@ tf_verbosity: 1
 clear_queue_on_fail: true
 receivers:
   - type: ImageReceiver
-    skip_frame: -1
+    skip_frame: 0
     queue_size: 1
     sensor:
       type: camera_info

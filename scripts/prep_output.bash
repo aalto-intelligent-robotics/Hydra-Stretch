@@ -28,7 +28,7 @@ source $HOME/hydra_ws/devel/setup.bash
 if [ ! -d "$OUTPUT_DIR/$OUTPUT_PREFIX" ]; then
   mkdir -p $OUTPUT_DIR/$OUTPUT_PREFIX
   cd $OUTPUT_DIR/$OUTPUT_PREFIX
-  mkdir backend frontend topology lcd pgmo
+  mkdir backend frontend topology lcd pgmo map2d
   echo "Created output directory $OUTPUT_DIR/$OUTPUT_PREFIX"
 else
   echo "Ouptut directory $OUTPUT_DIR/$OUTPUT_PREFIX exists, skipping output directory creation"

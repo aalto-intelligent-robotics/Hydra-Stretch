@@ -5,6 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /TF1/Frames1
+        - /Input1
         - /Input1/Depth1
         - /Input1/Semantics1
         - /Input1/RGB1
@@ -27,7 +29,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: RGB
+    SyncSource: Depth
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -42,114 +44,16 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        astra2_color_frame:
-          Value: false
-        astra2_color_optical_frame:
-          Value: false
-        astra2_depth_frame:
-          Value: false
-        astra2_depth_optical_frame:
-          Value: false
-        astra2_ir_frame:
-          Value: false
-        astra2_ir_optical_frame:
-          Value: false
-        astra2_link:
-          Value: true
         base_link:
           Value: true
-        camera_accel_frame:
-          Value: false
-        camera_accel_optical_frame:
-          Value: false
-        camera_bottom_screw_frame:
-          Value: false
-        camera_color_frame:
-          Value: false
-        camera_color_optical_frame:
-          Value: false
-        camera_depth_frame:
-          Value: false
-        camera_depth_optical_frame:
-          Value: false
-        camera_gyro_frame:
-          Value: false
-        camera_gyro_optical_frame:
-          Value: false
-        camera_infra1_frame:
-          Value: false
-        camera_infra1_optical_frame:
-          Value: false
-        camera_infra2_frame:
-          Value: false
-        camera_infra2_optical_frame:
-          Value: false
-        camera_link:
-          Value: false
-        caster_link:
-          Value: false
-        laser:
-          Value: false
-        link_arm_l0:
-          Value: false
-        link_arm_l1:
-          Value: false
-        link_arm_l2:
-          Value: false
-        link_arm_l3:
-          Value: false
-        link_arm_l4:
-          Value: false
-        link_aruco_inner_wrist:
-          Value: false
-        link_aruco_left_base:
-          Value: false
-        link_aruco_right_base:
-          Value: false
-        link_aruco_shoulder:
-          Value: false
-        link_aruco_top_wrist:
-          Value: false
-        link_grasp_center:
-          Value: false
-        link_gripper_finger_left:
-          Value: false
-        link_gripper_finger_right:
-          Value: false
-        link_gripper_fingertip_left:
-          Value: false
-        link_gripper_fingertip_right:
-          Value: false
-        link_head:
-          Value: false
-        link_head_pan:
-          Value: false
-        link_head_tilt:
-          Value: false
-        link_left_wheel:
-          Value: false
-        link_lift:
-          Value: false
-        link_mast:
-          Value: false
-        link_right_wheel:
-          Value: false
-        link_straight_gripper:
-          Value: false
-        link_wrist_pitch:
-          Value: false
-        link_wrist_roll:
-          Value: false
-        link_wrist_yaw:
-          Value: false
-        link_wrist_yaw_bottom:
-          Value: false
         map:
           Value: true
-        odom:
+        rio:
           Value: true
-        respeaker_base:
-          Value: false
+        rio_player:
+          Value: true
+        rio_ref:
+          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -157,82 +61,13 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
+        base_link:
+          rio_player:
+            {}
         map:
-          odom:
-            base_link:
-              astra2_link:
-                astra2_depth_frame:
-                  astra2_color_frame:
-                    astra2_color_optical_frame:
-                      {}
-                  astra2_depth_optical_frame:
-                    {}
-                  astra2_ir_frame:
-                    astra2_ir_optical_frame:
-                      {}
-              caster_link:
-                {}
-              laser:
-                {}
-              link_aruco_left_base:
-                {}
-              link_aruco_right_base:
-                {}
-              link_left_wheel:
-                {}
-              link_mast:
-                link_head:
-                  link_head_pan:
-                    link_head_tilt:
-                      camera_bottom_screw_frame:
-                        camera_link:
-                          camera_accel_frame:
-                            camera_accel_optical_frame:
-                              {}
-                          camera_color_frame:
-                            camera_color_optical_frame:
-                              {}
-                          camera_depth_frame:
-                            camera_depth_optical_frame:
-                              {}
-                          camera_gyro_frame:
-                            camera_gyro_optical_frame:
-                              {}
-                          camera_infra1_frame:
-                            camera_infra1_optical_frame:
-                              {}
-                          camera_infra2_frame:
-                            camera_infra2_optical_frame:
-                              {}
-                link_lift:
-                  link_arm_l4:
-                    link_arm_l3:
-                      link_arm_l2:
-                        link_arm_l1:
-                          link_arm_l0:
-                            link_aruco_inner_wrist:
-                              {}
-                            link_aruco_top_wrist:
-                              {}
-                            link_wrist_yaw:
-                              link_wrist_yaw_bottom:
-                                link_wrist_pitch:
-                                  link_wrist_roll:
-                                    link_straight_gripper:
-                                      link_grasp_center:
-                                        {}
-                                      link_gripper_finger_left:
-                                        link_gripper_fingertip_left:
-                                          {}
-                                      link_gripper_finger_right:
-                                        link_gripper_fingertip_right:
-                                          {}
-                  link_aruco_shoulder:
-                    {}
-                respeaker_base:
-                  {}
-              link_right_wheel:
-                {}
+          rio_ref:
+            rio:
+              {}
       Update Interval: 0
       Value: true
     - Class: rviz/Group
@@ -242,19 +77,7 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dsg_markers
           Name: Scene Graph (Static)
           Namespaces:
-            interlayer_edges_3_2: true
-            interlayer_edges_4_3: true
-            interlayer_edges_5_4: true
-            layer_bounding_boxes_2: true
-            layer_bounding_boxes_edges_2: true
-            layer_edges_3: true
-            layer_labels_2: true
-            layer_labels_4: true
-            layer_labels_5: true
-            layer_nodes_2: true
-            layer_nodes_3: true
-            layer_nodes_4: true
-            layer_nodes_5: true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -316,7 +139,7 @@ Visualization Manager:
           Value: false
         - Class: rviz/Image
           Enabled: true
-          Image Topic: /astra2/depth/image_raw
+          Image Topic: /rio_player/depth/image_raw
           Max Value: 1
           Median window: 300
           Min Value: 0
@@ -340,7 +163,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/Image
           Enabled: true
-          Image Topic: /astra2/color/image_raw
+          Image Topic: /rio_player/color/image_raw
           Max Value: 1
           Median window: 5
           Min Value: 0
@@ -468,7 +291,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /react_ros/position_updates
+      Marker Topic: /instance_matcher_ros/position_updates
       Name: PositionUpdates
       Namespaces:
         {}
@@ -476,17 +299,10 @@ Visualization Manager:
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /react_ros/ref_scan
+      Marker Topic: /instance_matcher_ros/ref_dsg
       Name: RefObjects
       Namespaces:
-        InstanceSet chair 0: true
-        InstanceSet chair 12: true
-        InstanceSet chair 3: true
-        InstanceSet couch 10: true
-        InstanceSet couch 14: true
-        InstanceSet dining_table 11: true
-        InstanceSet dining_table 2: true
-        InstanceSet dining_table 7: true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
@@ -517,7 +333,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 21.87388038635254
+      Distance: 21.24844741821289
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -525,17 +341,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 5.420437812805176
-        Y: 3.8636462688446045
-        Z: 1.324090600013733
+        X: 4.974231719970703
+        Y: 3.511824607849121
+        Z: 2.6183903217315674
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.0797983855009079
+      Pitch: 0.009798238053917885
       Target Frame: <Fixed Frame>
-      Yaw: 3.93670654296875
+      Yaw: 3.7966885566711426
     Saved: ~
 Window Geometry:
   Depth:
@@ -559,5 +375,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1254
-  X: 3847
+  X: 1287
   Y: 52

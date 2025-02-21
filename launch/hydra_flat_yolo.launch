@@ -20,7 +20,7 @@
   <!-- semantics -->
   <arg name="labelspace_dir" default="$(find hydra_stretch)/config/label_spaces"/>
   <arg name="labelspace_name" default="flat_inst" doc="semantic label space"/>
-  <arg name="labelspace_path" default="$(arg labelspace_dir)/coco_label_space.yaml"/>
+  <arg name="labelspace_path" default="$(arg labelspace_dir)/coco_flat_label_space.yaml"/>
   <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/flat_inst/color" if="$(arg use_gt_semantics)"/>
   <!-- TODO: Add config for using semantic seg model -->
   <!-- <arg name="semantic_map_dir" default="$(find semantic_inference)/config/colors" unless="$(arg use_gt_semantics)"/> -->
@@ -45,11 +45,15 @@
   <!-- Flat data player -->
   <arg name="seg_model" default="none"/>
   <arg name="play_rate" default="1"/>
+  <arg name="data_path" default="/home/ros/bags/flat_dataset/run1"/>
   <node name="flat_data_player" pkg="hydra_stretch" type="play_flat_data.py" output="screen">
     <param name="seg_model" value="$(arg seg_model)"/>
     <param name="play_rate" value="$(arg play_rate)"/>
+    <param name="data_path" value="$(arg data_path)"/>
   </node>
   <include file="$(find hydra_seg_ros)/launch/yolo_ros.launch">
-    <arg name="camera_name" value="flat_data_player" />
+    <!-- <arg name="conf" default="0.6" /> -->
+    <arg name="camera_name" value="flat_data_player"/>
+    <arg name="label_space_file" default="$(arg labelspace_path)"/>
   </include>
 </launch>

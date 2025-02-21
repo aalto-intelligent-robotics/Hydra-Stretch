@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
 <launch>
+  <!-- Flat data player -->
+  <arg name="data_path" default="/home/ros/bags/flat_dataset/run1" />
+  <node name="flat_data_player" pkg="hydra_stretch" type="play_flat_data.py" output="screen">
+    <param name="seg_model" value="inst" />
+    <param name="data_path" value="$(arg data_path)" />
+  </node>
+  <!-- Hydra node -->
   <arg name="sim_time_required" default="false"/>
   <param name="use_sim_time" value="$(arg sim_time_required)"/>
   <arg name="dataset_name" default="flat_inst"/>
@@ -9,34 +16,25 @@
   <node name="prep_output" pkg="hydra_stretch" type="prep_output.bash" output="screen" args="-n $(arg dsg_output_prefix) -d $(arg dsg_output_dir)"/>
   <!-- NOTE: Hydra node -->
   <arg name="use_gt_semantics" default="true" doc="use simulator-provider semantics"/>
-  <!-- <arg name="use_static_tfs" default="true" doc="publish static tfs from file"/> -->
-  <!-- <arg name="color_mesh_by_label" default="true" doc="display mesh colored by semantic label"/> -->
   <arg name="use_oriented_bounding_boxes" default="false"/>
   <arg name="use_2d_places" default="true"/>
   <arg name="robot_frame" default="depth_cam" doc="robot body tf frame"/>
   <arg name="sensor_frame" default="depth_cam" doc="camera frame"/>
-  <arg name="odom_frame" default="world" doc="odometry (map) frame"/>
-  <arg name="map_frame" default="world" doc="backend scene graph frame"/>
+  <arg name="odom_frame" default="map" doc="odometry (map) frame"/>
+  <arg name="map_frame" default="map" doc="backend scene graph frame"/>
   <!-- semantics -->
   <arg name="labelspace_dir" default="$(find hydra_stretch)/config/label_spaces"/>
   <arg name="labelspace_name" default="flat_inst" doc="semantic label space"/>
   <arg name="labelspace_path" default="$(arg labelspace_dir)/$(arg labelspace_name)_label_space.yaml"/>
   <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/flat_inst/color" if="$(arg use_gt_semantics)"/>
-  <!-- TODO: Add config for using semantic seg model -->
-  <!-- <arg name="semantic_map_dir" default="$(find semantic_inference)/config/colors" unless="$(arg use_gt_semantics)"/> -->
   <arg name="semantic_map_path" default="$(arg semantic_map_dir)/$(arg labelspace_name).csv"/>
-  <!-- Already remapped from oneformer visualization file, so not needed here (the config file is empty) -->
   <arg name="semantic_label_remap_filepath" default="$(find hydra_stretch)/config/label_remaps/$(arg labelspace_name).yaml"/>
-  <!-- TODO: Add label topic when using semantic seg model -->
-  <!-- <arg name="label_topic" default="/semantic/image_raw" unless="$(arg use_gt_semantics)"/> -->
-  <!-- sensor configuration -->
-  <arg name="sensor_min_range" default="0.5" doc="minimum sensor range in meters"/>
+  <arg name="sensor_min_range" default="1.0" doc="minimum sensor range in meters"/>
   <arg name="sensor_max_range" default="8.0" doc="maximum sensor range in meters"/>
-  <!-- <arg name="rgb_topic" default="$(eval '/flat_data_player/segmentation_image' if arg('color_mesh_by_label') else '/flat_data_player/color_image')"/> -->
   <arg name="rgb_topic" default="/flat_data_player/color/image_raw"/>
   <arg name="rgb_info_topic" default="/flat_data_player/depth/camera_info"/>
   <arg name="depth_topic" default="/flat_data_player/depth/image_raw"/>
-  <arg name="label_topic" default="/flat_data_player/label/image_raw"/>
+  <arg name="label_topic" default="/flat_data_player/segmentation_image"/>
   <arg name="packet_topic" default="/flat_data_player/vision_packet"/>
   <arg name="config_dir" default="$(find hydra_stretch)/config/flat_inst/hydra"/>
   <arg name="input_config_path" default="$(find hydra_stretch)/config/flat_inst/sensor.yaml"/>
@@ -46,7 +44,4 @@
     <arg name="rviz_dir" default="$(find hydra_stretch)/config/rviz"/>
     <arg name="rviz_file" default="flat.rviz"/>
   </include>
-  <node name="flat_data_player" pkg="hydra_stretch" type="play_flat_data.py" output="screen">
-    <param name="seg_model" value="inst" />
-  </node>
 </launch>

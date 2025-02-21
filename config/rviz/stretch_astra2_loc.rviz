@@ -5,9 +5,13 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /TF1
+        - /TF1/Frames1
+        - /Input1
         - /Input1/Depth1
         - /Input1/Semantics1
         - /Input1/RGB1
+        - /LaserScan1
       Splitter Ratio: 0.6264705657958984
     Tree Height: 389
   - Class: rviz/Selection
@@ -27,7 +31,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: RGB
+    SyncSource: Depth
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -42,6 +46,10 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        astra2_accel_frame:
+          Value: false
+        astra2_accel_optical_frame:
+          Value: false
         astra2_color_frame:
           Value: false
         astra2_color_optical_frame:
@@ -50,9 +58,9 @@ Visualization Manager:
           Value: false
         astra2_depth_optical_frame:
           Value: false
-        astra2_ir_frame:
+        astra2_gyro_frame:
           Value: false
-        astra2_ir_optical_frame:
+        astra2_gyro_optical_frame:
           Value: false
         astra2_link:
           Value: true
@@ -162,13 +170,16 @@ Visualization Manager:
             base_link:
               astra2_link:
                 astra2_depth_frame:
+                  astra2_accel_frame:
+                    astra2_accel_optical_frame:
+                      {}
                   astra2_color_frame:
                     astra2_color_optical_frame:
                       {}
                   astra2_depth_optical_frame:
                     {}
-                  astra2_ir_frame:
-                    astra2_ir_optical_frame:
+                  astra2_gyro_frame:
+                    astra2_gyro_optical_frame:
                       {}
               caster_link:
                 {}
@@ -248,6 +259,7 @@ Visualization Manager:
             layer_bounding_boxes_2: true
             layer_bounding_boxes_edges_2: true
             layer_edges_3: true
+            layer_edges_4: true
             layer_labels_2: true
             layer_labels_4: true
             layer_labels_5: true
@@ -466,28 +478,22 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Class: rviz/MarkerArray
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
+      Class: rviz/PoseArray
+      Color: 255; 25; 0
       Enabled: true
-      Marker Topic: /react_ros/position_updates
-      Name: PositionUpdates
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: true
-    - Class: rviz/MarkerArray
-      Enabled: true
-      Marker Topic: /react_ros/ref_scan
-      Name: RefObjects
-      Namespaces:
-        InstanceSet chair 0: true
-        InstanceSet chair 12: true
-        InstanceSet chair 3: true
-        InstanceSet couch 10: true
-        InstanceSet couch 14: true
-        InstanceSet dining_table 11: true
-        InstanceSet dining_table 2: true
-        InstanceSet dining_table 7: true
-      Queue Size: 100
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: PoseArray
+      Queue Size: 10
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Arrow (Flat)
+      Topic: /particlecloud
+      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
@@ -517,7 +523,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 21.87388038635254
+      Distance: 36.37631607055664
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -525,17 +531,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 5.420437812805176
-        Y: 3.8636462688446045
-        Z: 1.324090600013733
+        X: 4.972955703735352
+        Y: 3.893005132675171
+        Z: 0.9282849431037903
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.0797983855009079
+      Pitch: 0.7747976779937744
       Target Frame: <Fixed Frame>
-      Yaw: 3.93670654296875
+      Yaw: 3.511679172515869
     Saved: ~
 Window Geometry:
   Depth:
@@ -559,5 +565,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1254
-  X: 3847
+  X: 1287
   Y: 52
