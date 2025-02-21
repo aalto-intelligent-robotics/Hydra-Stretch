@@ -21,7 +21,7 @@ import tf2_ros
 
 from std_srvs.srv import Empty, EmptyResponse
 
-CLASS_IDS = [2, 6, 7, 8, 13, 14, 16, 18, 20, 22, 27]
+CLASS_IDS = [2, 6, 7, 8, 13, 14, 16, 18, 20, 22, 27, 28]
 
 CLASS_TO_COLOR = {
     0: [0, 0, 0],
@@ -106,7 +106,7 @@ class FlatDataPlayer(object):
             max_frames, int
         ), f"max_frames needs to be int, got {max_frames}"
         self.max_frames = max_frames
-        self.timer_period = 1.5  # seconds
+        self.timer_period = 0.2  # seconds
 
         # ROS
         self.color_pub = rospy.Publisher("~color/image_raw", Image, queue_size=100)

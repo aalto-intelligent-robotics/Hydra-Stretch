@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /TF1/Frames1
         - /Input1/Depth1
         - /Input1/Semantics1
         - /Input1/RGB1
@@ -28,7 +27,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: Depth
+    SyncSource: RGB
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -52,9 +51,9 @@ Visualization Manager:
         astra2_depth_optical_frame:
           Value: false
         astra2_ir_frame:
-          Value: true
+          Value: false
         astra2_ir_optical_frame:
-          Value: true
+          Value: false
         astra2_link:
           Value: true
         base_link:
@@ -243,7 +242,19 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dsg_markers
           Name: Scene Graph (Static)
           Namespaces:
-            {}
+            interlayer_edges_3_2: true
+            interlayer_edges_4_3: true
+            interlayer_edges_5_4: true
+            layer_bounding_boxes_2: true
+            layer_bounding_boxes_edges_2: true
+            layer_edges_3: true
+            layer_labels_2: true
+            layer_labels_4: true
+            layer_labels_5: true
+            layer_nodes_2: true
+            layer_nodes_3: true
+            layer_nodes_4: true
+            layer_nodes_5: true
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -251,7 +262,9 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
           Name: Scene Graph (Dynamic)
           Namespaces:
-            {}
+            "dynamic_edges_\x00": true
+            "dynamic_label_\x00": true
+            "dynamic_nodes_\x00": true
           Queue Size: 100
           Value: true
         - Class: kimera_pgmo_rviz/MeshDisplay
@@ -264,7 +277,11 @@ Visualization Manager:
           Topic: /hydra_dsg_visualizer/dsg_mesh
           Unreliable: false
           Value: true
-          Visible: true
+          Visible:
+            Value: true
+            robot0:
+              Value: true
+              dsg_mesh: true
       Enabled: true
       Name: Scene Graph
     - Class: rviz/Group
@@ -451,7 +468,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /instance_matcher_ros/position_updates
+      Marker Topic: /react_ros/position_updates
       Name: PositionUpdates
       Namespaces:
         {}
@@ -459,10 +476,17 @@ Visualization Manager:
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /instance_matcher_ros/ref_dsg
+      Marker Topic: /react_ros/ref_scan
       Name: RefObjects
       Namespaces:
-        {}
+        InstanceSet chair 0: true
+        InstanceSet chair 12: true
+        InstanceSet chair 3: true
+        InstanceSet couch 10: true
+        InstanceSet couch 14: true
+        InstanceSet dining_table 11: true
+        InstanceSet dining_table 2: true
+        InstanceSet dining_table 7: true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -501,17 +525,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 6.4380035400390625
-        Y: 1.5757956504821777
-        Z: 0.7045091986656189
+        X: 5.420437812805176
+        Y: 3.8636462688446045
+        Z: 1.324090600013733
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5347980856895447
+      Pitch: 0.0797983855009079
       Target Frame: <Fixed Frame>
-      Yaw: 2.8816916942596436
+      Yaw: 3.93670654296875
     Saved: ~
 Window Geometry:
   Depth:

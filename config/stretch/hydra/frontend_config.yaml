@@ -4,12 +4,12 @@ previous_dsg: /home/ros/dsg_output/kitchen1/
 pgmo:
   time_horizon: 15.0
   d_graph_resolution: 2.5
-  mesh_resolution: 0.01
+  mesh_resolution: 0.025
 objects:
   prefix: O
   active_horizon_s: 10.0
   active_index_horizon_m: 7.0
-  min_cluster_size: 20
+  min_cluster_size: 40
   max_cluster_size: 100000
   cluster_tolerance: 0.25
   min_mesh_z: 0.0
