@@ -12,7 +12,7 @@ import cv2
 import rospy
 from sensor_msgs.msg import Image, CameraInfo
 from geometry_msgs.msg import PoseStamped
-from hydra_stretch_msgs.msg import Mask, Masks, HydraVisionPacket
+from hydra_msgs.msg import Mask, Masks, HydraVisionPacket
 from cv_bridge import CvBridge
 from geometry_msgs.msg import TransformStamped
 from std_msgs.msg import Header
